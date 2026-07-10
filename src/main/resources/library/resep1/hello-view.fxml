@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
+<VBox alignment="CENTER" spacing="10.0"
+      xmlns:fx="http://javafx.com/fxml"
       fx:controller="library.resep1.View.HelloController">
+
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20" left="20" right="20" top="20"/>
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <Label text="Bus"/>
+
+    <TextField fx:id="busNumberField" promptText="Bus number"/>
+    <ComboBox fx:id="busTypeBox" promptText="Bus type"/>
+    <TextField fx:id="capacityField" promptText="Capacity"/>
+    <TextField fx:id="purposeField" promptText="Purpose"/>
+
+    <Button text="Add Bus" onAction="#addBus"/>
+
+    <ListView fx:id="busListView"/>
+
+    <Label text="Chauffeur"/>
+
+    <TextField fx:id="chauffeurNameField" promptText="Name"/>
+    <TextField fx:id="experienceField" promptText="Experience"/>
+    <TextField fx:id="preferencesField" promptText="Preferences"/>
+
+    <Button text="Add Chauffeur" onAction="#addChauffeur"/>
+
+    <ListView fx:id="chauffeurListView"/>
+
 </VBox>
