@@ -38,6 +38,24 @@ public class BusList {
 
     buses.add(bus);
     saveBuses();}
+  public boolean deleteBus(String busNumber) {
+    Bus busToDelete = null;
+
+    for (Bus bus : buses) {
+      if (bus.getBusNumber().equalsIgnoreCase(busNumber)) {
+        busToDelete = bus;
+        break;
+      }
+    }
+
+    if (busToDelete == null) {
+      return false;
+    }
+
+    buses.remove(busToDelete);
+    saveBuses();
+    return true;
+  }
 
   public List<Bus> getAllBuses() {
     return new ArrayList<>(buses);}
