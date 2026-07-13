@@ -23,6 +23,25 @@ public class ChauffeurList {
     chauffeurs.add(chauffeur);
     saveChauffeurs();}
 
+  public boolean deleteChauffeur(String name) {
+    Chauffeur chauffeurToDelete = null;
+
+    for (Chauffeur chauffeur : chauffeurs) {
+      if (chauffeur.getName().equalsIgnoreCase(name)) {
+        chauffeurToDelete = chauffeur;
+        break;
+      }
+    }
+
+    if (chauffeurToDelete == null) {
+      return false;
+    }
+
+    chauffeurs.remove(chauffeurToDelete);
+    saveChauffeurs();
+    return true;
+  }
+
   public List<Chauffeur> getAllChauffeurs() {
     return new ArrayList<>(chauffeurs);
   }
