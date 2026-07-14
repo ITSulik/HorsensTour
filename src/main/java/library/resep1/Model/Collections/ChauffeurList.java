@@ -12,10 +12,15 @@ import java.util.List;
 public class ChauffeurList {
 
   private static final String FILE_NAME = "chauffeurs.json";
+  private final String fileName;
   private final Gson gson;
   private final List<Chauffeur> chauffeurs;
 
   public ChauffeurList() {
+    this(FILE_NAME);}
+
+  public ChauffeurList(String fileName) {
+    this.fileName = fileName;
     gson = new Gson();
     chauffeurs = loadChauffeurs();}
 
@@ -66,14 +71,14 @@ public class ChauffeurList {
   }
 
   private void saveChauffeurs() {
-    try (FileWriter writer = new FileWriter(FILE_NAME)) {
+    try (FileWriter writer = new FileWriter(fileName)) {
       gson.toJson(chauffeurs, writer);
     } catch (IOException e) {
       throw new RuntimeException(e);}
   }
 
   private List<Chauffeur> loadChauffeurs() {
-    try (FileReader reader = new FileReader(FILE_NAME)) {
+    try (FileReader reader = new FileReader(fileName)) {
       Type type = new TypeToken<ArrayList<Chauffeur>>() {}.getType();
       List<Chauffeur> loaded = gson.fromJson(reader, type);
       return loaded == null ? new ArrayList<>() : loaded;
