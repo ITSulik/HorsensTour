@@ -41,7 +41,26 @@ public class ChauffeurList {
     saveChauffeurs();
     return true;
   }
+  public boolean editChauffeur(
+      String currentName,
+      String newName,
+      int newExperience,
+      String newPreferences
+  ) {
+    for (Chauffeur chauffeur : chauffeurs) {
+      if (chauffeur.getName().equalsIgnoreCase(currentName)) {
 
+        chauffeur.setName(newName);
+        chauffeur.setExperience(newExperience);
+        chauffeur.setPreferences(newPreferences);
+
+        saveChauffeurs();
+        return true;
+      }
+    }
+
+    return false;
+  }
   public List<Chauffeur> getAllChauffeurs() {
     return new ArrayList<>(chauffeurs);
   }

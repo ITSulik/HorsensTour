@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import library.resep1.Model.Enums.BusType;
 
 public class BusList {
 
@@ -55,6 +56,28 @@ public class BusList {
     buses.remove(busToDelete);
     saveBuses();
     return true;
+  }
+  public boolean editBus(
+      String currentBusNumber,
+      String newBusNumber,
+      BusType newType,
+      int newCapacity,
+      String newPurpose
+  ) {
+    for (Bus bus : buses) {
+      if (bus.getBusNumber().equalsIgnoreCase(currentBusNumber)) {
+
+        bus.setBusNumber(newBusNumber);
+        bus.setType(newType);
+        bus.setCapacity(newCapacity);
+        bus.setPurpose(newPurpose);
+
+        saveBuses();
+        return true;
+      }
+    }
+
+    return false;
   }
 
   public List<Bus> getAllBuses() {
