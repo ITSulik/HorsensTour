@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER_LEFT"
+      spacing="12.0"
+      prefWidth="350.0"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="library.resep1.View.EditChauffeurController">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Edit chauffeur"
+           style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <Label text="Name"/>
+    <TextField fx:id="nameField"
+               promptText="Chauffeur name"/>
+
+    <Label text="Years of experience"/>
+    <TextField fx:id="experienceField"
+               promptText="Years of experience"/>
+
+    <Label text="Preferences"/>
+    <TextField fx:id="preferencesField"
+               promptText="Preferences"/>
+
+    <Label fx:id="errorLabel"
+           visible="false"
+           style="-fx-text-fill: red;"/>
+
+    <HBox alignment="CENTER_RIGHT" spacing="10.0">
+        <Button text="Cancel"
+                onAction="#cancel"/>
+
+        <Button text="Save chauffeur"
+                onAction="#saveChauffeur"/>
+
+
+    </HBox>
+
+</VBox>
