@@ -31,7 +31,7 @@
 
     <VBox spacing="6">
         <Label text="Preferences" styleClass="field-label"/>
-        <TextField fx:id="preferencesField" promptText="Optional - e.g. route length, day/night"/>
+        <TextField fx:id="preferencesField" promptText="Optional" maxWidth="Infinity"/>
     </VBox>
 
     <HBox spacing="10" alignment="CENTER_RIGHT">

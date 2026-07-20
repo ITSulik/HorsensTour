@@ -20,6 +20,7 @@ import library.resep1.Model.Entities.Trip;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +42,8 @@ public class AssignResourcesController {
 
     private Stage dialogStage;
     private final Result result = new Result();
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+        DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
 
     public void init(BusList busList, ChauffeurList chauffeurList, TripList tripList,
                       String tripLabel, String destination, LocalDateTime start, LocalDateTime end,
@@ -52,8 +55,12 @@ public class AssignResourcesController {
             header += " " + destination;
         }
         titleLabel.setText(header);
-        timeRangeLabel.setText("Using the trip's start and end time: "
-                + DateTimeUtil.format(start) + " \u2013 " + DateTimeUtil.format(end));
+        timeRangeLabel.setText(
+            "Using the trip's start and end time: "
+                + start.format(DATE_TIME_FORMATTER)
+                + " \u2013 "
+                + end.format(DATE_TIME_FORMATTER)
+        );
 
         List<Bus> availableBuses = availableBuses(busList, tripList, start, end, excludeTripId);
         List<Chauffeur> availableChauffeurs = availableChauffeurs(chauffeurList, tripList, start, end, excludeTripId);
@@ -62,7 +69,11 @@ public class AssignResourcesController {
             emptyStateBox.setVisible(true);
             emptyStateBox.setManaged(true);
             emptyTimeSlotLabel.setText(
-                    "Time slot: " + DateTimeUtil.format(start) + " \u2013 " + DateTimeUtil.format(end));
+                "Time slot: "
+                    + start.format(DATE_TIME_FORMATTER)
+                    + " \u2013 "
+                    + end.format(DATE_TIME_FORMATTER)
+            );
             resultsBox.setVisible(false);
             resultsBox.setManaged(false);
             return;

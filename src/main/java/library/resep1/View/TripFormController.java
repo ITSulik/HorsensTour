@@ -1,15 +1,12 @@
 package library.resep1.View;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.StringConverter;
 import library.resep1.Model.Collections.BusList;
 import library.resep1.Model.Collections.ChauffeurList;
 import library.resep1.Model.Collections.TripList;
@@ -17,7 +14,13 @@ import library.resep1.Model.Entities.Trip;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
 
 public class TripFormController {
 
@@ -30,9 +33,11 @@ public class TripFormController {
 
     @FXML private TextField destinationField;
     @FXML private Label destinationError;
-    @FXML private TextField startField;
+    @FXML private DatePicker startDatePicker;
+    @FXML private ComboBox<LocalTime> startTimePicker;
     @FXML private Label startError;
-    @FXML private TextField endField;
+    @FXML private DatePicker endDatePicker;
+    @FXML private ComboBox<LocalTime> endTimePicker;
     @FXML private Label endError;
     @FXML private TextArea detailsArea;
 
@@ -60,6 +65,44 @@ public class TripFormController {
     private Stage dialogStage;
     private boolean saved;
 
+    @FXML
+    private void initialize() {
+        List<LocalTime> times = new ArrayList<>();
+
+        for (int hour = 0; hour < 24; hour++) {
+            for (int minute = 0; minute < 60; minute += 15) {
+                times.add(LocalTime.of(hour, minute));
+            }
+        }
+
+        startTimePicker.getItems().addAll(times);
+        endTimePicker.getItems().addAll(times);
+
+        startTimePicker.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(LocalTime time) {
+                return time == null ? "" : time.format(DateTimeFormatter.ofPattern("HH:mm"));
+            }
+
+            @Override
+            public LocalTime fromString(String string) {
+                return LocalTime.parse(string);
+            }
+        });
+
+        endTimePicker.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(LocalTime time) {
+                return time == null ? "" : time.format(DateTimeFormatter.ofPattern("HH:mm"));
+            }
+
+            @Override
+            public LocalTime fromString(String string) {
+                return LocalTime.parse(string);
+            }
+        });
+    }
+
     public void init(BusList busList, ChauffeurList chauffeurList, TripList tripList,
                       Mode mode, Trip trip, Stage dialogStage) {
         this.busList = busList;
@@ -84,10 +127,17 @@ public class TripFormController {
 
     private void setupView() {
         titleLabel.setText("Trip details: " + trip.getTripId());
+
         destinationField.setText(trip.getDestination());
-        startField.setText(DateTimeUtil.format(trip.getStartTime()));
-        endField.setText(DateTimeUtil.format(trip.getEndTime()));
+
+        startDatePicker.setValue(trip.getStartTime().toLocalDate());
+        startTimePicker.setValue(trip.getStartTime().toLocalTime());
+
+        endDatePicker.setValue(trip.getEndTime().toLocalDate());
+        endTimePicker.setValue(trip.getEndTime().toLocalTime());
+
         detailsArea.setText(trip.getAdditionalDetails());
+
         setFieldsEditable(false);
 
         viewFooter.setVisible(true);
@@ -98,10 +148,17 @@ public class TripFormController {
 
     private void setupNew() {
         titleLabel.setText("New trip");
+
         destinationField.clear();
-        startField.clear();
-        endField.clear();
+
+        startDatePicker.setValue(null);
+        startTimePicker.setValue(null);
+
+        endDatePicker.setValue(null);
+        endTimePicker.setValue(null);
+
         detailsArea.clear();
+
         setFieldsEditable(true);
 
         viewFooter.setVisible(false);
@@ -113,10 +170,17 @@ public class TripFormController {
 
     private void setupEdit() {
         titleLabel.setText("Edit trip");
+
         destinationField.setText(trip.getDestination());
-        startField.setText(DateTimeUtil.format(trip.getStartTime()));
-        endField.setText(DateTimeUtil.format(trip.getEndTime()));
+
+        startDatePicker.setValue(trip.getStartTime().toLocalDate());
+        startTimePicker.setValue(trip.getStartTime().toLocalTime());
+
+        endDatePicker.setValue(trip.getEndTime().toLocalDate());
+        endTimePicker.setValue(trip.getEndTime().toLocalTime());
+
         detailsArea.setText(trip.getAdditionalDetails());
+
         setFieldsEditable(true);
 
         viewFooter.setVisible(false);
@@ -128,8 +192,11 @@ public class TripFormController {
 
     private void setFieldsEditable(boolean editable) {
         destinationField.setDisable(!editable);
-        startField.setDisable(!editable);
-        endField.setDisable(!editable);
+        startDatePicker.setDisable(!editable);
+        startTimePicker.setDisable(!editable);
+
+        endDatePicker.setDisable(!editable);
+        endTimePicker.setDisable(!editable);
         detailsArea.setDisable(!editable);
         assignBusButton.setVisible(editable);
         assignBusButton.setManaged(editable);
@@ -155,8 +222,8 @@ public class TripFormController {
 
     private void clearFieldErrors() {
         setError(destinationField, destinationError, null);
-        setError(startField, startError, null);
-        setError(endField, endError, null);
+        setError(startDatePicker, startError, null);
+        setError(endDatePicker, endError, null);
         busConflictText.setVisible(false);
         busConflictText.setManaged(false);
         chauffeurConflictText.setVisible(false);
@@ -189,8 +256,12 @@ public class TripFormController {
     }
 
     private void openAssignDialog() {
-        Optional<LocalDateTime> start = DateTimeUtil.tryParse(startField.getText());
-        Optional<LocalDateTime> end = DateTimeUtil.tryParse(endField.getText());
+        Optional<LocalDateTime> start =
+            getDateTime(startDatePicker, startTimePicker);
+
+        Optional<LocalDateTime> end =
+            getDateTime(endDatePicker, endTimePicker);
+
         if (start.isEmpty() || end.isEmpty() || !end.get().isAfter(start.get())) {
             clearBanner();
             bannerBox.getStyleClass().setAll("banner", "banner-error");
@@ -221,8 +292,11 @@ public class TripFormController {
         clearFieldErrors();
 
         String destination = destinationField.getText() == null ? "" : destinationField.getText().trim();
-        Optional<LocalDateTime> start = DateTimeUtil.tryParse(startField.getText());
-        Optional<LocalDateTime> end = DateTimeUtil.tryParse(endField.getText());
+        Optional<LocalDateTime> start =
+            getDateTime(startDatePicker, startTimePicker);
+
+        Optional<LocalDateTime> end =
+            getDateTime(endDatePicker, endTimePicker);
 
         boolean hasFieldError = false;
         if (destination.isEmpty()) {
@@ -230,14 +304,14 @@ public class TripFormController {
             hasFieldError = true;
         }
         if (start.isEmpty()) {
-            setError(startField, startError, "Enter a valid start date/time, e.g. 15 Jul 2026, 08:00.");
+            setError(startDatePicker, startError, "Enter a valid start date/time, e.g. 15 Jul 2026, 08:00.");
             hasFieldError = true;
         }
         if (end.isEmpty()) {
-            setError(endField, endError, "Enter a valid end date/time, e.g. 15 Jul 2026, 18:00.");
+            setError(endDatePicker, endError, "Enter a valid end date/time, e.g. 15 Jul 2026, 18:00.");
             hasFieldError = true;
         } else if (start.isPresent() && !end.get().isAfter(start.get())) {
-            setError(endField, endError, "End date/time must be after the start date/time.");
+            setError(endDatePicker, endError, "End date/time must be after the start date/time.");
             hasFieldError = true;
         }
 
@@ -409,5 +483,21 @@ public class TripFormController {
         } catch (IOException e) {
             throw new RuntimeException("Failed to open trip dialog", e);
         }
+    }
+
+    private Optional<LocalDateTime> getDateTime(
+        DatePicker datePicker,
+        ComboBox<LocalTime> timePicker
+    ) {
+        if (datePicker.getValue() == null || timePicker.getValue() == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(
+            LocalDateTime.of(
+                datePicker.getValue(),
+                timePicker.getValue()
+            )
+        );
     }
 }

@@ -23,6 +23,7 @@ import library.resep1.Model.Entities.Chauffeur;
 import library.resep1.Model.Entities.Trip;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 public class DashboardController {
@@ -71,6 +72,8 @@ public class DashboardController {
     private final ObservableList<Trip> trips = FXCollections.observableArrayList();
     private final ObservableList<Bus> buses = FXCollections.observableArrayList();
     private final ObservableList<Chauffeur> chauffeurs = FXCollections.observableArrayList();
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+        DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
 
     @FXML
     public void initialize() {
@@ -141,9 +144,11 @@ public class DashboardController {
         destinationColumn.setCellValueFactory(data ->
                 new javafx.beans.property.SimpleStringProperty(data.getValue().getDestination()));
         startColumn.setCellValueFactory(data ->
-                new javafx.beans.property.SimpleStringProperty(DateTimeUtil.format(data.getValue().getStartTime())));
+            new javafx.beans.property.SimpleStringProperty(
+                data.getValue().getStartTime().format(DATE_TIME_FORMATTER)));
         endColumn.setCellValueFactory(data ->
-                new javafx.beans.property.SimpleStringProperty(DateTimeUtil.format(data.getValue().getEndTime())));
+            new javafx.beans.property.SimpleStringProperty(
+                data.getValue().getEndTime().format(DATE_TIME_FORMATTER)));
         busColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 data.getValue().hasBusAssigned() ? data.getValue().getBusNumber() : "\u2014"));
         chauffeurColumn.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(

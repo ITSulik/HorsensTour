@@ -1,9 +1,15 @@
 package library.resep1.View;
 
+import javafx.util.StringConverter;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -21,8 +27,10 @@ import java.util.Optional;
 
 public class CheckAvailabilityController {
 
-    @FXML private TextField startField;
-    @FXML private TextField endField;
+    @FXML private DatePicker startDatePicker;
+    @FXML private ComboBox<LocalTime> startTimePicker;
+    @FXML private DatePicker endDatePicker;
+    @FXML private ComboBox<LocalTime> endTimePicker;
     @FXML private Label errorLabel;
     @FXML private VBox emptyStateBox;
     @FXML private Label emptyTimeSlotLabel;
@@ -34,6 +42,8 @@ public class CheckAvailabilityController {
     private ChauffeurList chauffeurList;
     private TripList tripList;
     private Stage dialogStage;
+    private static final DateTimeFormatter DATE_TIME_FORMATTER =
+        DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
 
     public void init(BusList busList, ChauffeurList chauffeurList, TripList tripList, Stage dialogStage) {
         this.busList = busList;
@@ -44,6 +54,35 @@ public class CheckAvailabilityController {
         resultsBox.setManaged(false);
         emptyStateBox.setVisible(false);
         emptyStateBox.setManaged(false);
+
+        List<LocalTime> times = new ArrayList<>();
+
+        for (int hour = 0; hour < 24; hour++) {
+            for (int minute = 0; minute < 60; minute += 15) {
+                times.add(LocalTime.of(hour, minute));
+            }
+        }
+
+        startTimePicker.getItems().addAll(times);
+        endTimePicker.getItems().addAll(times);
+
+        StringConverter<LocalTime> timeConverter = new StringConverter<>() {
+            private final DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("HH:mm");
+
+            @Override
+            public String toString(LocalTime time) {
+                return time == null ? "" : time.format(formatter);
+            }
+
+            @Override
+            public LocalTime fromString(String string) {
+                return LocalTime.parse(string, formatter);
+            }
+        };
+
+        startTimePicker.setConverter(timeConverter);
+        endTimePicker.setConverter(timeConverter);
     }
 
     @FXML
@@ -51,8 +90,11 @@ public class CheckAvailabilityController {
         errorLabel.setVisible(false);
         errorLabel.setManaged(false);
 
-        Optional<LocalDateTime> start = DateTimeUtil.tryParse(startField.getText());
-        Optional<LocalDateTime> end = DateTimeUtil.tryParse(endField.getText());
+        Optional<LocalDateTime> start =
+            getDateTime(startDatePicker, startTimePicker);
+
+        Optional<LocalDateTime> end =
+            getDateTime(endDatePicker, endTimePicker);
 
         if (start.isEmpty() || end.isEmpty() || !end.get().isAfter(start.get())) {
             errorLabel.setText("Enter a valid start and end date/time (end after start), e.g. 15 Jul 2026, 08:00.");
@@ -75,7 +117,10 @@ public class CheckAvailabilityController {
             emptyStateBox.setVisible(true);
             emptyStateBox.setManaged(true);
             emptyTimeSlotLabel.setText(
-                    "Time slot: " + DateTimeUtil.format(start.get()) + " \u2013 " + DateTimeUtil.format(end.get()));
+                "Time slot: "
+                    + start.get().format(DATE_TIME_FORMATTER)
+                    + " – "
+                    + end.get().format(DATE_TIME_FORMATTER));
             return;
         }
 
@@ -141,5 +186,21 @@ public class CheckAvailabilityController {
         } catch (IOException e) {
             throw new RuntimeException("Failed to open check availability dialog", e);
         }
+    }
+
+    private Optional<LocalDateTime> getDateTime(
+        DatePicker datePicker,
+        ComboBox<LocalTime> timePicker
+    ) {
+        if (datePicker.getValue() == null || timePicker.getValue() == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(
+            LocalDateTime.of(
+                datePicker.getValue(),
+                timePicker.getValue()
+            )
+        );
     }
 }

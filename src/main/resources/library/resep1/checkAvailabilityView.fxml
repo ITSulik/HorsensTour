@@ -16,11 +16,42 @@
 
         <VBox spacing="6">
             <Label text="Start date/time *" styleClass="field-label"/>
-            <TextField fx:id="startField" promptText="e.g. 15 Jul 2026, 08:00"/>
+
+            <HBox spacing="8">
+                <DatePicker fx:id="startDatePicker"
+                            promptText="Date"
+                            HBox.hgrow="ALWAYS"/>
+
+                <ComboBox fx:id="startTimePicker"
+                          promptText="Time"
+                          prefWidth="110"/>
+            </HBox>
+
+            <Label fx:id="startError"
+                   styleClass="error-text"
+                   wrapText="true"
+                   visible="false"
+                   managed="false"/>
         </VBox>
+
         <VBox spacing="6">
             <Label text="End date/time *" styleClass="field-label"/>
-            <TextField fx:id="endField" promptText="e.g. 15 Jul 2026, 17:30"/>
+
+            <HBox spacing="8">
+                <DatePicker fx:id="endDatePicker"
+                            promptText="Date"
+                            HBox.hgrow="ALWAYS"/>
+
+                <ComboBox fx:id="endTimePicker"
+                          promptText="Time"
+                          prefWidth="110"/>
+            </HBox>
+
+            <Label fx:id="endError"
+                   styleClass="error-text"
+                   wrapText="true"
+                   visible="false"
+                   managed="false"/>
         </VBox>
         <Label fx:id="errorLabel" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
 
