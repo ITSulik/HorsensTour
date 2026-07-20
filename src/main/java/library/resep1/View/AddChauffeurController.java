@@ -11,11 +11,6 @@ import library.resep1.Model.Entities.Chauffeur;
 
 import java.io.IOException;
 
-/**
- * Backs addChauffeurView.fxml. Handles both the "New chauffeur" and
- * "Edit chauffeur: <name>" states, including the inline validation-error
- * state (banner + red field borders + per-field messages).
- */
 public class AddChauffeurController {
 
     @FXML private Label titleLabel;

@@ -19,14 +19,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-/**
- * Backs tripFormView.fxml, covering all three trip-form states from the
- * mockup: read-only "Trip details: TRP-101" (VIEW), "New trip" (NEW), and
- * "Edit trip" with its time-conflict warning (EDIT).
- *
- * Trip has no tripType field in the current Model, so - unlike the
- * original mockup - this form does not include a Trip type dropdown.
- */
 public class TripFormController {
 
     public enum Mode { VIEW, NEW, EDIT }

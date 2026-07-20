@@ -7,10 +7,6 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 
-/**
- * Blocked-delete dialog shown when a bus or chauffeur is still assigned
- * to one or more upcoming trips.
- */
 public class CannotDeleteController {
 
     @FXML private Label titleLabel;

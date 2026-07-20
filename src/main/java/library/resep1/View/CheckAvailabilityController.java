@@ -19,11 +19,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * General-purpose "Check availability" lookup (not tied to any one trip).
- * Reuses TripList#getAvailableBuses / #getAvailableChauffeurs directly,
- * since there's no trip to exclude here.
- */
 public class CheckAvailabilityController {
 
     @FXML private TextField startField;

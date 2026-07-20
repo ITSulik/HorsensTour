@@ -6,10 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Optional;
 
-/**
- * Parsing/formatting for the "15 Jul 2026, 08:00" style date-time text
- * fields used across the dashboard's forms and dialogs.
- */
+
 public final class DateTimeUtil {
 
     public static final DateTimeFormatter DISPLAY_FORMAT =

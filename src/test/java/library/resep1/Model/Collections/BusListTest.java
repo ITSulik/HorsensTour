@@ -13,9 +13,7 @@ class BusListTest {
 
   @Test
   void addBusShouldStoreBus() {
-    BusList busList = new BusList(
-        tempDir.resolve("buses.json").toString()
-    );
+    BusList busList = new BusList();
 
     Bus bus = new Bus(
         "Bus 01",

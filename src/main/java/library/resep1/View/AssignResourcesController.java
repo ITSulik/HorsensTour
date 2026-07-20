@@ -23,17 +23,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * "Assign resources" popup scoped to one trip's time window. Availability
- * is computed locally here (rather than via TripList#getAvailableBuses /
- * #getAvailableChauffeurs) so the trip currently being created/edited can
- * be excluded from its own conflict check - TripList's helper methods
- * don't take an "exclude this trip" parameter.
- *
- * Picks made here are returned via {@link Result}, not applied directly:
- * the caller (TripFormController for a pending trip, or the dashboard for
- * an already-saved one) decides when to persist them.
- */
+
 public class AssignResourcesController {
 
     public static final class Result {

@@ -25,20 +25,6 @@ import library.resep1.Model.Entities.Trip;
 import java.time.LocalDateTime;
 import java.util.function.Function;
 
-/**
- * Backs Dashboard.fxml - the single "big dashboard" screen: a dark
- * sidebar (Planning / Buses / Chauffeurs) over one content area whose
- * three sections live in the same FXML file and are shown/hidden rather
- * than loaded from separate view files.
- *
- * Data access goes straight to Model.Collections (BusList / ChauffeurList
- * / TripList) rather than through ViewModel, because ViewModel currently
- * doesn't expose editBus/editChauffeur or trip resource assignment. Bus
- * and Chauffeur also have no persisted status field, so "Available" /
- * "On trip" is computed here from live trip assignments rather than
- * stored - there is deliberately no "Unavailable" bucket, since nothing
- * in the current Model can represent that yet.
- */
 public class DashboardController {
 
     // --- Sidebar ---

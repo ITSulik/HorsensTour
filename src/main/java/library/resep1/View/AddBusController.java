@@ -16,11 +16,6 @@ import library.resep1.Model.Enums.BusType;
 
 import java.io.IOException;
 
-/**
- * Backs addBusView.fxml. Handles both the "New bus" and "Edit bus: <n>"
- * states from the mockup, including the inline validation-error state
- * (banner + red field borders + per-field messages).
- */
 public class AddBusController {
 
     @FXML private Label titleLabel;

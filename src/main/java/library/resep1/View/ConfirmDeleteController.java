@@ -8,10 +8,6 @@ import javafx.stage.Window;
 
 import java.io.IOException;
 
-/**
- * Generic "Are you sure you want to delete X? This cannot be undone."
- * confirmation, reused for trips, buses, and chauffeurs.
- */
 public class ConfirmDeleteController {
 
     @FXML private Label titleLabel;
