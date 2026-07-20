@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="library.resep1.View.AddChauffeurController"
+      styleClass="dialog-card" spacing="14" prefWidth="380">
+    <padding>
+        <Insets top="22" right="22" bottom="22" left="22"/>
+    </padding>
 
-</AnchorPane>
+    <Label fx:id="titleLabel" text="New chauffeur" styleClass="dialog-title"/>
+
+    <VBox fx:id="bannerBox" styleClass="banner, banner-error" visible="false" managed="false">
+        <Label fx:id="bannerLabel" text="Please fix the highlighted fields." wrapText="true" styleClass="banner-title"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Name *" styleClass="field-label"/>
+        <TextField fx:id="nameField" promptText="e.g. Anna Krogh"/>
+        <Label fx:id="nameError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Years of experience *" styleClass="field-label"/>
+        <TextField fx:id="experienceField" promptText="e.g. 4"/>
+        <Label fx:id="experienceError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Preferences" styleClass="field-label"/>
+        <TextField fx:id="preferencesField" promptText="Optional" maxWidth="Infinity"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" styleClass="btn-secondary" onAction="#onCancel"/>
+        <Button text="Save chauffeur" styleClass="btn-primary" onAction="#onSave"/>
+    </HBox>
+</VBox>

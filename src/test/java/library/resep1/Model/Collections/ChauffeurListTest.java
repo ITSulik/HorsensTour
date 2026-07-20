@@ -11,9 +11,7 @@ class ChauffeurListTest {
 
   @Test
   void addChauffeurShouldStoreChauffeur() {
-    ChauffeurList chauffeurList = new ChauffeurList(
-        tempDir.resolve("chauffeurs.json").toString()
-    );
+    ChauffeurList chauffeurList = new ChauffeurList(    );
 
     Chauffeur chauffeur = new Chauffeur(
         "Mateo",
