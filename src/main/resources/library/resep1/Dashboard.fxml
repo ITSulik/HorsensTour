@@ -1,14 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="library.resep1.View.DashboardController"
+            styleClass="root-pane" prefWidth="1280" prefHeight="800">
 
-</AnchorPane>
+    <left>
+        <VBox styleClass="sidebar" prefWidth="220" spacing="4" BorderPane.alignment="TOP_LEFT">
+            <padding>
+                <Insets top="24" right="16" bottom="24" left="16"/>
+            </padding>
+            <Label text="Horsens Tours" styleClass="sidebar-title"/>
+            <Region prefHeight="24"/>
+            <ToggleButton fx:id="planningNavButton" text="Planning" styleClass="nav-button" maxWidth="Infinity"
+                          onAction="#onShowPlanning"/>
+            <ToggleButton fx:id="busesNavButton" text="Buses" styleClass="nav-button" maxWidth="Infinity"
+                          onAction="#onShowBuses"/>
+            <ToggleButton fx:id="chauffeursNavButton" text="Chauffeurs" styleClass="nav-button" maxWidth="Infinity"
+                          onAction="#onShowChauffeurs"/>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane styleClass="content-area">
+
+            <!-- ================= PLANNING ================= -->
+            <VBox fx:id="planningSection" spacing="20">
+                <padding>
+                    <Insets top="32" right="32" bottom="32" left="32"/>
+                </padding>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label text="Planning overview" styleClass="page-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Check availability" styleClass="btn-secondary" onAction="#onCheckAvailability"/>
+                    <Button text="+ New trip" styleClass="btn-primary" onAction="#onNewTrip"/>
+                </HBox>
+                <TableView fx:id="tripTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="tripIdColumn" text="Trip ID" prefWidth="85"/>
+                        <TableColumn fx:id="destinationColumn" text="Destination" prefWidth="140"/>
+                        <TableColumn fx:id="startColumn" text="Start" prefWidth="150"/>
+                        <TableColumn fx:id="endColumn" text="End" prefWidth="150"/>
+                        <TableColumn fx:id="busColumn" text="Bus" prefWidth="80"/>
+                        <TableColumn fx:id="chauffeurColumn" text="Chauffeur" prefWidth="120"/>
+                        <TableColumn fx:id="tripStatusColumn" text="Status" prefWidth="110"/>
+                        <TableColumn fx:id="tripActionsColumn" text="Actions" prefWidth="170"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- ================= BUSES ================= -->
+            <VBox fx:id="busesSection" spacing="20" visible="false" managed="false">
+                <padding>
+                    <Insets top="32" right="32" bottom="32" left="32"/>
+                </padding>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label text="Buses" styleClass="page-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="+ New bus" styleClass="btn-primary" onAction="#onNewBus"/>
+                </HBox>
+                <TableView fx:id="busTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="busNumberColumn" text="Bus number" prefWidth="120"/>
+                        <TableColumn fx:id="busTypeColumn" text="Type" prefWidth="150"/>
+                        <TableColumn fx:id="busCapacityColumn" text="Capacity" prefWidth="90"/>
+                        <TableColumn fx:id="busPurposeColumn" text="Purpose" prefWidth="140"/>
+                        <TableColumn fx:id="busStatusColumn" text="Status" prefWidth="110"/>
+                        <TableColumn fx:id="busActionsColumn" text="Actions" prefWidth="120"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+            <!-- ================= CHAUFFEURS ================= -->
+            <VBox fx:id="chauffeursSection" spacing="20" visible="false" managed="false">
+                <padding>
+                    <Insets top="32" right="32" bottom="32" left="32"/>
+                </padding>
+                <HBox alignment="CENTER_LEFT" spacing="12">
+                    <Label text="Chauffeurs" styleClass="page-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="+ New chauffeur" styleClass="btn-primary" onAction="#onNewChauffeur"/>
+                </HBox>
+                <TableView fx:id="chauffeurTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="chauffeurNameColumn" text="Name" prefWidth="150"/>
+                        <TableColumn fx:id="chauffeurExperienceColumn" text="Experience" prefWidth="100"/>
+                        <TableColumn fx:id="chauffeurPreferencesColumn" text="Preferences" prefWidth="220"/>
+                        <TableColumn fx:id="chauffeurStatusColumn" text="Status" prefWidth="110"/>
+                        <TableColumn fx:id="chauffeurActionsColumn" text="Actions" prefWidth="120"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+
+        </StackPane>
+    </center>
+</BorderPane>

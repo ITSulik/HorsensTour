@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="library.resep1.View.TripFormController"
+            fitToWidth="true" styleClass="dialog-scroll" prefWidth="460" maxHeight="720">
+    <VBox styleClass="dialog-card" spacing="14">
+        <padding>
+            <Insets top="24" right="24" bottom="24" left="24"/>
+        </padding>
+
+        <Label fx:id="titleLabel" text="New trip" styleClass="dialog-title"/>
+
+        <VBox fx:id="bannerBox" styleClass="banner, banner-error" spacing="4" visible="false" managed="false">
+            <Label fx:id="bannerTitle" wrapText="true" styleClass="banner-title"/>
+            <Label fx:id="bannerSubtitle" wrapText="true" styleClass="banner-subtitle" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Destination *" styleClass="field-label"/>
+            <TextField fx:id="destinationField" promptText="e.g. Skagen"/>
+            <Label fx:id="destinationError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Start date/time *" styleClass="field-label"/>
+            <TextField fx:id="startField" promptText="e.g. 15 Jul 2026, 08:00"/>
+            <Label fx:id="startError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="End date/time *" styleClass="field-label"/>
+            <TextField fx:id="endField" promptText="e.g. 15 Jul 2026, 18:00"/>
+            <Label fx:id="endError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Additional details" styleClass="field-label"/>
+            <TextArea fx:id="detailsArea" promptText="Optional notes for the driver or office" prefRowCount="3"
+                      wrapText="true"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Assigned bus" styleClass="field-label"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="assignedBusLabel" text="Unassigned" styleClass="assigned-value"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="assignBusButton" text="Assign bus" styleClass="btn-secondary-small" onAction="#onAssignBus"/>
+            </HBox>
+            <Label fx:id="busConflictText" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+        </VBox>
+
+        <VBox spacing="6">
+            <Label text="Assigned chauffeur" styleClass="field-label"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label fx:id="assignedChauffeurLabel" text="Unassigned" styleClass="assigned-value"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="assignChauffeurButton" text="Assign chauffeur" styleClass="btn-secondary-small"
+                        onAction="#onAssignChauffeur"/>
+            </HBox>
+            <Label fx:id="chauffeurConflictText" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+        </VBox>
+
+        <HBox fx:id="viewFooter" spacing="10" alignment="CENTER_LEFT" visible="false" managed="false">
+            <Button text="Delete Trip" styleClass="btn-danger-outline" onAction="#onDeleteTrip"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Close" styleClass="btn-secondary" onAction="#onClose"/>
+            <Button text="Edit" styleClass="btn-primary" onAction="#onSwitchToEdit"/>
+        </HBox>
+
+        <HBox fx:id="editFooter" spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Cancel" styleClass="btn-secondary" onAction="#onCancel"/>
+            <Button fx:id="saveButton" text="Save trip" styleClass="btn-primary" onAction="#onSave"/>
+        </HBox>
+    </VBox>
+</ScrollPane>

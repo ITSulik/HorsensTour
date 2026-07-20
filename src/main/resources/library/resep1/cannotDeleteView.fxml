@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="library.resep1.View.CannotDeleteController"
+      styleClass="dialog-card" spacing="12" prefWidth="380">
+    <padding>
+        <Insets top="22" right="22" bottom="22" left="22"/>
+    </padding>
+
+    <Label fx:id="titleLabel" text="Cannot delete" styleClass="dialog-title"/>
+    <Label fx:id="messageLabel" text="" wrapText="true" styleClass="dialog-message"/>
+    <Label fx:id="detailLabel" text="" wrapText="true" styleClass="helper-text"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Close" styleClass="btn-secondary" onAction="#onClose"/>
+    </HBox>
+</VBox>

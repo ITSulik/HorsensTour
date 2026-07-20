@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="library.resep1.View.CheckAvailabilityController"
+            fitToWidth="true" styleClass="dialog-scroll" prefWidth="420" maxHeight="640">
+    <VBox styleClass="dialog-card" spacing="14">
+        <padding>
+            <Insets top="24" right="24" bottom="24" left="24"/>
+        </padding>
+
+        <Label text="Check availability" styleClass="dialog-title"/>
+
+        <VBox spacing="6">
+            <Label text="Start date/time *" styleClass="field-label"/>
+            <TextField fx:id="startField" promptText="e.g. 15 Jul 2026, 08:00"/>
+        </VBox>
+        <VBox spacing="6">
+            <Label text="End date/time *" styleClass="field-label"/>
+            <TextField fx:id="endField" promptText="e.g. 15 Jul 2026, 17:30"/>
+        </VBox>
+        <Label fx:id="errorLabel" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+
+        <Button text="Check availability" styleClass="btn-primary" maxWidth="Infinity" onAction="#onCheck"/>
+
+        <VBox fx:id="emptyStateBox" spacing="4" visible="false" managed="false" styleClass="empty-state">
+            <Label fx:id="emptyTimeSlotLabel" styleClass="empty-state-time"/>
+            <Label text="No buses or chauffeurs are available for this time slot." wrapText="true"
+                   styleClass="empty-state-text"/>
+        </VBox>
+
+        <VBox fx:id="resultsBox" spacing="16" visible="false" managed="false">
+            <VBox spacing="8">
+                <Label text="Available buses" styleClass="section-label"/>
+                <VBox fx:id="busesListBox" spacing="6"/>
+            </VBox>
+            <VBox spacing="8">
+                <Label text="Available chauffeurs" styleClass="section-label"/>
+                <VBox fx:id="chauffeursListBox" spacing="6"/>
+            </VBox>
+        </VBox>
+
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Close" styleClass="btn-secondary" onAction="#onClose"/>
+        </HBox>
+    </VBox>
+</ScrollPane>

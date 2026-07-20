@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="library.resep1.View.AddBusController"
+      styleClass="dialog-card" spacing="14" prefWidth="380">
+    <padding>
+        <Insets top="22" right="22" bottom="22" left="22"/>
+    </padding>
 
-</AnchorPane>
+    <Label fx:id="titleLabel" text="New bus" styleClass="dialog-title"/>
+
+    <VBox fx:id="bannerBox" styleClass="banner, banner-error" visible="false" managed="false">
+        <Label fx:id="bannerLabel" text="Please fix the highlighted fields." wrapText="true" styleClass="banner-title"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Bus number *" styleClass="field-label"/>
+        <TextField fx:id="numberField" promptText="e.g. Bus 14"/>
+        <Label fx:id="numberError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Type *" styleClass="field-label"/>
+        <ComboBox fx:id="typeCombo" maxWidth="Infinity"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Capacity *" styleClass="field-label"/>
+        <TextField fx:id="capacityField" promptText="e.g. 49"/>
+        <Label fx:id="capacityError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Purpose *" styleClass="field-label"/>
+        <ComboBox fx:id="purposeCombo" editable="true" maxWidth="Infinity" promptText="e.g. Tourism"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancel" styleClass="btn-secondary" onAction="#onCancel"/>
+        <Button text="Save bus" styleClass="btn-primary" onAction="#onSave"/>
+    </HBox>
+</VBox>
