@@ -20,6 +20,10 @@ public class BusViewModel {
     Bus bus = new Bus(busNumber, type, capacity, purpose);
     busList.addBus(bus);}
 
+  public boolean deleteBus(String busNumber) {
+    return busList.deleteBus(busNumber);
+  }
+
   public List<Bus> getAllBuses() {
     return busList.getAllBuses();
   }

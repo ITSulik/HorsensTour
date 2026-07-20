@@ -23,6 +23,9 @@
 
     <ListView fx:id="busListView"/>
 
+    <Button text="Edit Bus" onAction="#editBus"/>
+    <Button text="Delete Bus" onAction="#deleteBus"/>
+
     <Label text="Chauffeur"/>
 
     <TextField fx:id="chauffeurNameField" promptText="Name"/>
@@ -32,5 +35,7 @@
     <Button text="Add Chauffeur" onAction="#addChauffeur"/>
 
     <ListView fx:id="chauffeurListView"/>
+    <Button text="Edit Chauffeur" onAction="#editChauffeur"/>
+    <Button text="Delete Chauffeur" onAction="#deleteChauffeur"/>
 
 </VBox>

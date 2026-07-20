@@ -79,4 +79,71 @@ public class HelloController {
     for (Chauffeur chauffeur : chauffeurList.getAllChauffeurs()) {
       chauffeurListView.getItems().add(chauffeur.getName());}
   }
+  @FXML
+  private void editBus() {
+    String selectedBusNumber =
+        busListView.getSelectionModel().getSelectedItem();
+
+    if (selectedBusNumber == null) {
+      return;
+    }
+
+    busList.editBus(
+        selectedBusNumber,
+        busNumberField.getText(),
+        busTypeBox.getValue(),
+        Integer.parseInt(capacityField.getText()),
+        purposeField.getText()
+    );
+
+    showBuses();
+  }
+
+  @FXML
+  private void deleteBus() {
+
+    String selectedBusNumber =
+        busListView.getSelectionModel().getSelectedItem();
+
+    if (selectedBusNumber == null) {
+      return;
+    }
+
+    busList.deleteBus(selectedBusNumber);
+
+    showBuses();
+  }
+
+  @FXML
+  private void editChauffeur() {
+    String selectedChauffeurName =
+        chauffeurListView.getSelectionModel().getSelectedItem();
+
+    if (selectedChauffeurName == null) {
+      return;
+    }
+
+    chauffeurList.editChauffeur(
+        selectedChauffeurName,
+        chauffeurNameField.getText(),
+        Integer.parseInt(experienceField.getText()),
+        preferencesField.getText()
+    );
+
+    showChauffeurs();
+  }
+
+  @FXML
+  private void deleteChauffeur() {
+    String selectedChauffeurName =
+        chauffeurListView.getSelectionModel().getSelectedItem();
+
+    if (selectedChauffeurName == null) {
+      return;
+    }
+
+    chauffeurList.deleteChauffeur(selectedChauffeurName);
+
+    showChauffeurs();
+  }
 }

@@ -25,4 +25,25 @@ public class Chauffeur {
 
   public String getPreferences() {
     return preferences;}
+  // Added setters to support editing chauffeur records.
+
+  public void setName(String name) {
+    if (name == null || name.isBlank()) {
+      throw new IllegalArgumentException("Name is required.");
+    }
+    this.name = name;
+  }
+
+  public void setExperience(int experience) {
+    if (experience < 0) {
+      throw new IllegalArgumentException(
+          "Experience must be zero or a positive number."
+      );
+    }
+    this.experience = experience;
+  }
+
+  public void setPreferences(String preferences) {
+    this.preferences = preferences == null ? "" : preferences;
+  }
 }

@@ -8,4 +8,5 @@ module library.resep1 {
   opens library.resep1.Model.Entities to com.google.gson;
   exports library.resep1;
   exports library.resep1.View to javafx.graphics;
+  exports library.resep1.Model.Enums to com.google.gson;
 }
