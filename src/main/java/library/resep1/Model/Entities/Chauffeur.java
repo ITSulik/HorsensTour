@@ -1,6 +1,9 @@
 package library.resep1.Model.Entities;
 
+import java.util.UUID;
+
 public class Chauffeur {
+  private final String chauffeurID;
   private String name;
   private int experience;
   private String preferences;
@@ -13,7 +16,7 @@ public class Chauffeur {
       throw new IllegalArgumentException(
           "Experience must be zero or a positive number."
       );}
-
+    this.chauffeurID = UUID.randomUUID().toString();
     this.name = name;
     this.experience = experience;
     this.preferences = preferences == null ? "" : preferences;}
@@ -46,4 +49,8 @@ public class Chauffeur {
   public void setPreferences(String preferences) {
     this.preferences = preferences == null ? "" : preferences;
   }
+
+    public String getChauffeurID() {
+        return chauffeurID;
+    }
 }

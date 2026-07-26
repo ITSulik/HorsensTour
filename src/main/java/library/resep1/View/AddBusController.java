@@ -1,7 +1,6 @@
 package library.resep1.View;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
@@ -10,9 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.StringConverter;
-import library.resep1.Model.Collections.BusList;
-import library.resep1.Model.Entities.Bus;
 import library.resep1.Model.Enums.BusType;
+import library.resep1.ViewModel.BusViewModel;
 
 import java.io.IOException;
 
@@ -28,9 +26,8 @@ public class AddBusController {
     @FXML private Label capacityError;
     @FXML private ComboBox<String> purposeCombo;
 
-    private BusList busList;
+    private final BusViewModel busVM = new BusViewModel();
     private Stage dialogStage;
-    private String editingBusNumber; // null while creating a new bus
     private boolean saved;
 
     @FXML
@@ -52,28 +49,9 @@ public class AddBusController {
         purposeCombo.getItems().setAll("Tourism", "Long-distance", "Private charter");
     }
 
-    public void init(BusList busList, Bus busToEdit, Stage dialogStage) {
-        this.busList = busList;
+    public void init(Stage dialogStage) {
         this.dialogStage = dialogStage;
         clearErrors();
-
-        if (busToEdit == null) {
-            editingBusNumber = null;
-            titleLabel.setText("New bus");
-            numberField.clear();
-            typeCombo.setValue(BusType.TOURIST_BUS);
-            capacityField.clear();
-            purposeCombo.setValue(null);
-            purposeCombo.getEditor().clear();
-        } else {
-            editingBusNumber = busToEdit.getBusNumber();
-            titleLabel.setText("Edit bus: " + busToEdit.getBusNumber());
-            numberField.setText(busToEdit.getBusNumber());
-            typeCombo.setValue(busToEdit.getType());
-            capacityField.setText(String.valueOf(busToEdit.getCapacity()));
-            purposeCombo.setValue(busToEdit.getPurpose());
-            purposeCombo.getEditor().setText(busToEdit.getPurpose());
-        }
     }
 
     private void clearErrors() {
@@ -131,15 +109,7 @@ public class AddBusController {
         }
 
         try {
-            if (editingBusNumber == null) {
-                busList.addBus(new Bus(number, type, capacity, purpose));
-            } else {
-                boolean updated = busList.editBus(editingBusNumber, number, type, capacity, purpose);
-                if (!updated) {
-                    showBanner("Could not find " + editingBusNumber + " to update.");
-                    return;
-                }
-            }
+                busVM.addBus(number, type, capacity, purpose);
         } catch (IllegalArgumentException e) {
             showBanner(e.getMessage());
             return;
@@ -166,12 +136,12 @@ public class AddBusController {
     }
 
     /** Opens the New/Edit bus dialog. Pass {@code null} as busToEdit to create a new bus. */
-    public static boolean showDialog(Window owner, BusList busList, Bus busToEdit) {
+    public static boolean showDialog(Window owner) {
         try {
-            String title = busToEdit == null ? "New bus" : "Edit bus";
+            String title = "New bus" ;
             DialogUtil.Loaded<AddBusController> loaded =
                     DialogUtil.load("/library/resep1/addBusView.fxml", title, owner);
-            loaded.controller.init(busList, busToEdit, loaded.stage);
+            loaded.controller.init(loaded.stage);
             loaded.stage.showAndWait();
             return loaded.controller.isSaved();
         } catch (IOException e) {

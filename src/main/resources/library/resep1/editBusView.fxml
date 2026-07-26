@@ -18,28 +18,40 @@
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
+    <VBox fx:id="bannerBox" styleClass="banner, banner-error" visible="false" managed="false">
+        <Label fx:id="bannerLabel" text="Please fix the highlighted fields." wrapText="true" styleClass="banner-title"/>
+    </VBox>
+
+    <VBox spacing="6">
     <Label text="Edit bus"
            style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    </VBox>
 
+    <VBox spacing="6">
     <Label text="Bus number"/>
     <TextField fx:id="busNumberField"
                promptText="Bus number"/>
+        <Label fx:id="numberError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
 
+    <VBox spacing="6">
     <Label text="Bus type"/>
     <ComboBox fx:id="busTypeBox"
               promptText="Bus type"/>
+    </VBox>
 
+    <VBox spacing="6">
     <Label text="Capacity"/>
     <TextField fx:id="capacityField"
                promptText="Capacity"/>
+        <Label fx:id="capacityError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
 
+    <VBox spacing="6">
     <Label text="Purpose"/>
     <TextField fx:id="purposeField"
                promptText="Purpose"/>
-
-    <Label fx:id="errorLabel"
-           visible="false"
-           style="-fx-text-fill: red;"/>
+    </VBox>
 
     <HBox alignment="CENTER_RIGHT" spacing="10.0">
         <Button text="Cancel"

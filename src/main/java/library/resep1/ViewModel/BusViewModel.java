@@ -18,10 +18,23 @@ public class BusViewModel {
   )
   {
     Bus bus = new Bus(busNumber, type, capacity, purpose);
-    busList.addBus(bus);}
+    busList.addBus(bus);
+  }
 
-  public boolean deleteBus(String busNumber) {
-    return busList.deleteBus(busNumber);
+  public boolean editBus(
+          String busId,
+          String busNumber,
+          BusType type,
+          int capacity,
+          String purpose
+  )
+  {
+    return busList.editBus(busId,busNumber,type,capacity,purpose);
+  }
+
+
+  public boolean deleteBus(String busID) {
+    return busList.deleteBus(busID);
   }
 
   public List<Bus> getAllBuses() {

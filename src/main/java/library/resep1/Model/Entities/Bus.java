@@ -1,7 +1,10 @@
 package library.resep1.Model.Entities;
 import library.resep1.Model.Enums.BusType;
 
+import java.util.UUID;
+
 public class Bus {
+  private String busID;
   private String busNumber;
   private BusType type;
   private int capacity;
@@ -22,6 +25,7 @@ public class Bus {
     if (purpose == null || purpose.isBlank()) {
       throw new IllegalArgumentException("Purpose is required.");}
 
+    this.busID = UUID.randomUUID().toString();
     this.busNumber = busNumber;
     this.type = type;
     this.capacity = capacity;
@@ -71,4 +75,8 @@ public void setPurpose(String purpose) {
   }
   this.purpose = purpose;
 }
+
+    public String getBusID() {
+        return busID;
+    }
 }

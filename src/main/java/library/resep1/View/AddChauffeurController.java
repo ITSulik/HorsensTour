@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import library.resep1.Model.Collections.ChauffeurList;
 import library.resep1.Model.Entities.Chauffeur;
+import library.resep1.ViewModel.ChauffeurViewModel;
 
 import java.io.IOException;
 
@@ -22,29 +23,13 @@ public class AddChauffeurController {
     @FXML private Label experienceError;
     @FXML private TextField preferencesField;
 
-    private ChauffeurList chauffeurList;
+    private final ChauffeurViewModel chVM = new ChauffeurViewModel();
     private Stage dialogStage;
-    private String editingName; // null while creating a new chauffeur
     private boolean saved;
 
-    public void init(ChauffeurList chauffeurList, Chauffeur chauffeurToEdit, Stage dialogStage) {
-        this.chauffeurList = chauffeurList;
+    public void init(Stage dialogStage) {
         this.dialogStage = dialogStage;
         clearErrors();
-
-        if (chauffeurToEdit == null) {
-            editingName = null;
-            titleLabel.setText("New chauffeur");
-            nameField.clear();
-            experienceField.clear();
-            preferencesField.clear();
-        } else {
-            editingName = chauffeurToEdit.getName();
-            titleLabel.setText("Edit chauffeur: " + chauffeurToEdit.getName());
-            nameField.setText(chauffeurToEdit.getName());
-            experienceField.setText(String.valueOf(chauffeurToEdit.getExperience()));
-            preferencesField.setText(chauffeurToEdit.getPreferences());
-        }
     }
 
     private void clearErrors() {
@@ -101,15 +86,7 @@ public class AddChauffeurController {
         }
 
         try {
-            if (editingName == null) {
-                chauffeurList.addChauffeur(new Chauffeur(name, experience, preferences));
-            } else {
-                boolean updated = chauffeurList.editChauffeur(editingName, name, experience, preferences);
-                if (!updated) {
-                    showBanner("Could not find " + editingName + " to update.");
-                    return;
-                }
-            }
+                chVM.addChauffeur(name, experience, preferences);
         } catch (IllegalArgumentException e) {
             showBanner(e.getMessage());
             return;
@@ -136,12 +113,12 @@ public class AddChauffeurController {
     }
 
     /** Opens the New/Edit chauffeur dialog. Pass {@code null} as chauffeurToEdit to create a new one. */
-    public static boolean showDialog(Window owner, ChauffeurList chauffeurList, Chauffeur chauffeurToEdit) {
+    public static boolean showDialog(Window owner) {
         try {
-            String title = chauffeurToEdit == null ? "New chauffeur" : "Edit chauffeur";
+            String title = "New chauffeur";
             DialogUtil.Loaded<AddChauffeurController> loaded =
                     DialogUtil.load("/library/resep1/addChauffeurView.fxml", title, owner);
-            loaded.controller.init(chauffeurList, chauffeurToEdit, loaded.stage);
+            loaded.controller.init(loaded.stage);
             loaded.stage.showAndWait();
             return loaded.controller.isSaved();
         } catch (IOException e) {

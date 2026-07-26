@@ -20,8 +20,15 @@ public class ChauffeurViewModel {
 
     chauffeurList.addChauffeur(chauffeur);}
 
-  public boolean deleteChauffeur(String name) {
-    return chauffeurList.deleteChauffeur(name);
+  public boolean editChauffeur(
+          String ID,
+          String name,
+          int experience,
+          String preferences
+  ) { return chauffeurList.editChauffeur(ID, name, experience, preferences);}
+
+  public boolean deleteChauffeur(String ID) {
+    return chauffeurList.deleteChauffeur(ID);
   }
 
   public List<Chauffeur> getAllChauffeurs() {

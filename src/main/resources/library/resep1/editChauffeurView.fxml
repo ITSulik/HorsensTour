@@ -20,21 +20,31 @@
     <Label text="Edit chauffeur"
            style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-    <Label text="Name"/>
-    <TextField fx:id="nameField"
+    <VBox fx:id="bannerBox" styleClass="banner, banner-error" visible="false" managed="false">
+        <Label fx:id="bannerLabel" text="Please fix the highlighted fields." wrapText="true" styleClass="banner-title"/>
+    </VBox>
+
+    <VBox spacing="6">
+        <Label text="Name"/>
+        <TextField fx:id="nameField"
                promptText="Chauffeur name"/>
+        <Label fx:id="nameError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
 
-    <Label text="Years of experience"/>
-    <TextField fx:id="experienceField"
+    <VBox spacing="6">
+        <Label text="Years of experience"/>
+        <TextField fx:id="experienceField"
                promptText="Years of experience"/>
+        <Label fx:id="experienceError" styleClass="error-text" wrapText="true" visible="false" managed="false"/>
+    </VBox>
 
-    <Label text="Preferences"/>
-    <TextField fx:id="preferencesField"
+    <VBox spacing="6">
+        <Label text="Preferences"/>
+        <TextField fx:id="preferencesField"
                promptText="Preferences"/>
 
-    <Label fx:id="errorLabel"
-           visible="false"
-           style="-fx-text-fill: red;"/>
+    </VBox>
+
 
     <HBox alignment="CENTER_RIGHT" spacing="10.0">
         <Button text="Cancel"

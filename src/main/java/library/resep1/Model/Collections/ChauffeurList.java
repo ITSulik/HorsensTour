@@ -28,11 +28,11 @@ public class ChauffeurList {
     chauffeurs.add(chauffeur);
     saveChauffeurs();}
 
-  public boolean deleteChauffeur(String name) {
+  public boolean deleteChauffeur(String ID) {
     Chauffeur chauffeurToDelete = null;
 
     for (Chauffeur chauffeur : chauffeurs) {
-      if (chauffeur.getName().equalsIgnoreCase(name)) {
+      if (chauffeur.getChauffeurID().equalsIgnoreCase(ID)) {
         chauffeurToDelete = chauffeur;
         break;
       }
@@ -47,15 +47,15 @@ public class ChauffeurList {
     return true;
   }
   public boolean editChauffeur(
-      String currentName,
-      String newName,
+          String ID,
+      String name,
       int newExperience,
       String newPreferences
   ) {
     for (Chauffeur chauffeur : chauffeurs) {
-      if (chauffeur.getName().equalsIgnoreCase(currentName)) {
+      if (chauffeur.getChauffeurID().equalsIgnoreCase(ID))  {
 
-        chauffeur.setName(newName);
+        chauffeur.setName(name);
         chauffeur.setExperience(newExperience);
         chauffeur.setPreferences(newPreferences);
 

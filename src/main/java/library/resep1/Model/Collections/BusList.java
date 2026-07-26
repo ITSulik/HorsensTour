@@ -41,11 +41,11 @@ public class BusList {
 
     buses.add(bus);
     saveBuses();}
-  public boolean deleteBus(String busNumber) {
+  public boolean deleteBus(String busID) {
     Bus busToDelete = null;
 
     for (Bus bus : buses) {
-      if (bus.getBusNumber().equalsIgnoreCase(busNumber)) {
+      if (bus.getBusID().equalsIgnoreCase(busID)) {
         busToDelete = bus;
         break;
       }
@@ -60,16 +60,16 @@ public class BusList {
     return true;
   }
   public boolean editBus(
-      String currentBusNumber,
-      String newBusNumber,
+      String busID,
+      String busNumber,
       BusType newType,
       int newCapacity,
       String newPurpose
   ) {
     for (Bus bus : buses) {
-      if (bus.getBusNumber().equalsIgnoreCase(currentBusNumber)) {
+      if (bus.getBusID().equalsIgnoreCase(busID)) {
 
-        bus.setBusNumber(newBusNumber);
+        bus.setBusNumber(busNumber);
         bus.setType(newType);
         bus.setCapacity(newCapacity);
         bus.setPurpose(newPurpose);

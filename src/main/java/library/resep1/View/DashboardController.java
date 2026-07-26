@@ -21,9 +21,12 @@ import library.resep1.Model.Collections.TripList;
 import library.resep1.Model.Entities.Bus;
 import library.resep1.Model.Entities.Chauffeur;
 import library.resep1.Model.Entities.Trip;
+import library.resep1.ViewModel.BusViewModel;
+import library.resep1.ViewModel.ChauffeurViewModel;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.function.Function;
 
 public class DashboardController {
@@ -65,8 +68,12 @@ public class DashboardController {
     @FXML private TableColumn<Chauffeur, String> chauffeurStatusColumn;
     @FXML private TableColumn<Chauffeur, Chauffeur> chauffeurActionsColumn;
 
-    private final BusList busList = new BusList();
-    private final ChauffeurList chauffeurList = new ChauffeurList();
+    private final BusViewModel busVM = new BusViewModel();
+    private final ChauffeurViewModel chauffeurVM = new ChauffeurViewModel();
+
+
+    private final List<Bus> busList = busVM.getAllBuses();
+    private final List<Chauffeur> chauffeurList = chauffeurVM.getAllChauffeurs();
     private final TripList tripList = new TripList();
 
     private final ObservableList<Trip> trips = FXCollections.observableArrayList();
@@ -127,8 +134,8 @@ public class DashboardController {
 
     private void refreshAll() {
         trips.setAll(tripList.getAllTrips());
-        buses.setAll(busList.getAllBuses());
-        chauffeurs.setAll(chauffeurList.getAllChauffeurs());
+        buses.setAll(busVM.getAllBuses());
+        chauffeurs.setAll(chauffeurVM.getAllChauffeurs());
         tripTable.refresh();
         busTable.refresh();
         chauffeurTable.refresh();
@@ -303,7 +310,7 @@ public class DashboardController {
 
     @FXML
     private void onNewBus() {
-        boolean saved = AddBusController.showDialog(windowOf(busTable), busList, null);
+        boolean saved = AddBusController.showDialog(windowOf(busTable));
         if (saved) {
             refreshAll();
         }
@@ -313,7 +320,7 @@ public class DashboardController {
         if (bus == null) {
             return;
         }
-        boolean saved = AddBusController.showDialog(windowOf(busTable), busList, bus);
+        boolean saved = EditBusController.showDialog(windowOf(busTable), bus);
         if (saved) {
             refreshAll();
         }
@@ -331,7 +338,7 @@ public class DashboardController {
         boolean confirmed = ConfirmDeleteController.showDialog(windowOf(busTable), "Delete bus",
                 bus.getBusNumber(), "Delete bus");
         if (confirmed) {
-            busList.deleteBus(bus.getBusNumber());
+            busVM.deleteBus(bus.getBusID());
             refreshAll();
         }
     }
@@ -402,7 +409,7 @@ public class DashboardController {
 
     @FXML
     private void onNewChauffeur() {
-        boolean saved = AddChauffeurController.showDialog(windowOf(chauffeurTable), chauffeurList, null);
+        boolean saved = AddChauffeurController.showDialog(windowOf(chauffeurTable));
         if (saved) {
             refreshAll();
         }
@@ -412,7 +419,7 @@ public class DashboardController {
         if (chauffeur == null) {
             return;
         }
-        boolean saved = AddChauffeurController.showDialog(windowOf(chauffeurTable), chauffeurList, chauffeur);
+        boolean saved = EditChauffeurController.showDialog( windowOf(chauffeurTable), chauffeur);
         if (saved) {
             refreshAll();
         }
@@ -430,7 +437,7 @@ public class DashboardController {
         boolean confirmed = ConfirmDeleteController.showDialog(windowOf(chauffeurTable), "Delete chauffeur",
                 chauffeur.getName(), "Delete chauffeur");
         if (confirmed) {
-            chauffeurList.deleteChauffeur(chauffeur.getName());
+            chauffeurVM.deleteChauffeur(chauffeur.getChauffeurID());
             refreshAll();
         }
     }
