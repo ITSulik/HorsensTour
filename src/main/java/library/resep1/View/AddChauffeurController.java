@@ -23,7 +23,7 @@ public class AddChauffeurController {
     @FXML private Label experienceError;
     @FXML private TextField preferencesField;
 
-    private final ChauffeurViewModel chVM = new ChauffeurViewModel();
+    private final ChauffeurViewModel chVM = ChauffeurViewModel.getInstance();
     private Stage dialogStage;
     private boolean saved;
 

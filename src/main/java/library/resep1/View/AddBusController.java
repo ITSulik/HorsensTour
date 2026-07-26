@@ -26,7 +26,7 @@ public class AddBusController {
     @FXML private Label capacityError;
     @FXML private ComboBox<String> purposeCombo;
 
-    private final BusViewModel busVM = new BusViewModel();
+    private final BusViewModel busVM = BusViewModel.getInstance();
     private Stage dialogStage;
     private boolean saved;
 

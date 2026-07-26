@@ -1,4 +1,5 @@
 package library.resep1.ViewModel;
+import library.resep1.Model.Collections.BusList;
 import library.resep1.Model.Collections.ChauffeurList;
 import library.resep1.Model.Entities.Chauffeur;
 import java.util.List;
@@ -7,9 +8,16 @@ public class ChauffeurViewModel {
 
   private final ChauffeurList chauffeurList;
 
-  public ChauffeurViewModel() {
-    chauffeurList = new ChauffeurList();}
+  private static final ChauffeurViewModel INSTANCE =
+          new ChauffeurViewModel();
 
+  private ChauffeurViewModel() {
+    chauffeurList = new ChauffeurList();
+  }
+
+  public static ChauffeurViewModel getInstance() {
+    return INSTANCE;
+  }
   public void addChauffeur(
       String name,
       int experience,
