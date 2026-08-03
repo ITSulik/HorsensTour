@@ -92,11 +92,8 @@ public class AddTripController {
 
                     @Override
                     public String toString(LocalTime time) {
-                        return time == null
-                                ? ""
-                                : time.format(formatter);
+                        return time == null ? "" : time.format(formatter);
                     }
-
                     @Override
                     public LocalTime fromString(String text) {
                         return LocalTime.parse(text, formatter);
@@ -131,10 +128,7 @@ public class AddTripController {
                         endTimePicker
                 );
 
-        if (
-                start.isEmpty()
-                        || end.isEmpty()
-                        || !end.get().isAfter(start.get())
+        if (start.isEmpty() || end.isEmpty() || !end.get().isAfter(start.get())
         ) {
             showBanner(
                     "Enter a valid start and end date/time "
@@ -158,13 +152,11 @@ public class AddTripController {
                 );
 
         if (result.busNumber != null) {
-            pendingBusNumber =
-                    result.busNumber;
+            pendingBusNumber = result.busNumber;
         }
 
         if (result.chauffeurName != null) {
-            pendingChauffeurName =
-                    result.chauffeurName;
+            pendingChauffeurName = result.chauffeurName;
         }
 
         refreshAssignedLabels();
@@ -176,10 +168,7 @@ public class AddTripController {
         clearBanner();
         clearFieldErrors();
 
-        String destination =
-                destinationField.getText() == null
-                        ? ""
-                        : destinationField.getText().trim();
+        String destination = destinationField.getText() == null ? "" : destinationField.getText().trim();
 
         Optional<LocalDateTime> start =
                 getDateTime(
@@ -227,10 +216,8 @@ public class AddTripController {
 
             hasErrors = true;
 
-        } else if (
-                start.isPresent()
-                        && !end.get().isAfter(start.get())
-        ) {
+        } else if (start.isPresent() && !end.get().isAfter(start.get()))
+        {
 
             setError(
                     endDatePicker,
@@ -243,9 +230,7 @@ public class AddTripController {
 
         if (hasErrors) {
 
-            showBanner(
-                    "Please fill in the required fields."
-            );
+            showBanner("Please fill in the required fields.");
 
             return;
         }
@@ -265,16 +250,12 @@ public class AddTripController {
                 )
         ) {
 
-            showBanner(
-                    "The selected bus is already assigned "
-                            + "during this time."
-            );
+            showBanner("The selected bus is already assigned during this time.");
 
             return;
         }
 
-        if (
-                tripVM.hasChauffeurConflict(
+        if (tripVM.hasChauffeurConflict(
                         pendingChauffeurName,
                         newStart,
                         newEnd,

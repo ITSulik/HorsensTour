@@ -1,6 +1,7 @@
 package library.resep1.Model.Entities;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class Trip {
   private String tripId;
@@ -12,17 +13,15 @@ public class Trip {
   private String chauffeurName;
 
   public Trip(
-      String tripId,
       String destination,
       LocalDateTime startTime,
       LocalDateTime endTime,
       String additionalDetails
   ) {
-    this(tripId, destination, startTime, endTime, additionalDetails, "", "");
+    this(destination, startTime, endTime, additionalDetails, "", "");
   }
 
   public Trip(
-      String tripId,
       String destination,
       LocalDateTime startTime,
       LocalDateTime endTime,
@@ -30,11 +29,10 @@ public class Trip {
       String busNumber,
       String chauffeurName
   ) {
-    validateRequired(tripId, "Trip ID is required.");
     validateRequired(destination, "Destination is required.");
     validateTimeSlot(startTime, endTime);
 
-    this.tripId = tripId;
+    this.tripId = UUID.randomUUID().toString();
     this.destination = destination;
     this.startTime = startTime;
     this.endTime = endTime;

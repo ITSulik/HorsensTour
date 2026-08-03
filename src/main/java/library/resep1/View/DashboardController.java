@@ -36,104 +36,53 @@ public class DashboardController {
     // Sidebar
     // ---------------------------------------------------------------
 
-    @FXML
-    private ToggleButton planningNavButton;
+    @FXML private ToggleButton planningNavButton;
+    @FXML private ToggleButton busesNavButton;
+    @FXML private ToggleButton chauffeursNavButton;
 
-    @FXML
-    private ToggleButton busesNavButton;
-
-    @FXML
-    private ToggleButton chauffeursNavButton;
-
-    @FXML
-    private VBox planningSection;
-
-    @FXML
-    private VBox busesSection;
-
-    @FXML
-    private VBox chauffeursSection;
+    @FXML private VBox planningSection;
+    @FXML private VBox busesSection;
+    @FXML private VBox chauffeursSection;
 
 
     // ---------------------------------------------------------------
     // Planning
     // ---------------------------------------------------------------
 
-    @FXML
-    private TableView<Trip> tripTable;
-
-    @FXML
-    private TableColumn<Trip, String> tripIdColumn;
-
-    @FXML
-    private TableColumn<Trip, String> destinationColumn;
-
-    @FXML
-    private TableColumn<Trip, String> startColumn;
-
-    @FXML
-    private TableColumn<Trip, String> endColumn;
-
-    @FXML
-    private TableColumn<Trip, String> busColumn;
-
-    @FXML
-    private TableColumn<Trip, String> chauffeurColumn;
-
-    @FXML
-    private TableColumn<Trip, String> tripStatusColumn;
-
-    @FXML
-    private TableColumn<Trip, Trip> tripActionsColumn;
+    @FXML private TableView<Trip> tripTable;
+    @FXML private TableColumn<Trip, String> tripIdColumn;
+    @FXML private TableColumn<Trip, String> destinationColumn;
+    @FXML private TableColumn<Trip, String> startColumn;
+    @FXML private TableColumn<Trip, String> endColumn;
+    @FXML private TableColumn<Trip, String> busColumn;
+    @FXML private TableColumn<Trip, String> chauffeurColumn;
+    @FXML private TableColumn<Trip, String> tripStatusColumn;
+    @FXML private TableColumn<Trip, Trip> tripActionsColumn;
 
 
     // ---------------------------------------------------------------
     // Buses
     // ---------------------------------------------------------------
 
-    @FXML
-    private TableView<Bus> busTable;
-
-    @FXML
-    private TableColumn<Bus, String> busNumberColumn;
-
-    @FXML
-    private TableColumn<Bus, String> busTypeColumn;
-
-    @FXML
-    private TableColumn<Bus, Number> busCapacityColumn;
-
-    @FXML
-    private TableColumn<Bus, String> busPurposeColumn;
-
-    @FXML
-    private TableColumn<Bus, String> busStatusColumn;
-
-    @FXML
-    private TableColumn<Bus, Bus> busActionsColumn;
+    @FXML private TableView<Bus> busTable;
+    @FXML private TableColumn<Bus, String> busNumberColumn;
+    @FXML private TableColumn<Bus, String> busTypeColumn;
+    @FXML private TableColumn<Bus, Number> busCapacityColumn;
+    @FXML private TableColumn<Bus, String> busPurposeColumn;
+    @FXML private TableColumn<Bus, String> busStatusColumn;
+    @FXML private TableColumn<Bus, Bus> busActionsColumn;
 
 
     // ---------------------------------------------------------------
     // Chauffeurs
     // ---------------------------------------------------------------
 
-    @FXML
-    private TableView<Chauffeur> chauffeurTable;
-
-    @FXML
-    private TableColumn<Chauffeur, String> chauffeurNameColumn;
-
-    @FXML
-    private TableColumn<Chauffeur, Number> chauffeurExperienceColumn;
-
-    @FXML
-    private TableColumn<Chauffeur, String> chauffeurPreferencesColumn;
-
-    @FXML
-    private TableColumn<Chauffeur, String> chauffeurStatusColumn;
-
-    @FXML
-    private TableColumn<Chauffeur, Chauffeur> chauffeurActionsColumn;
+    @FXML private TableView<Chauffeur> chauffeurTable;
+    @FXML private TableColumn<Chauffeur, String> chauffeurNameColumn;
+    @FXML private TableColumn<Chauffeur, Number> chauffeurExperienceColumn;
+    @FXML private TableColumn<Chauffeur, String> chauffeurPreferencesColumn;
+    @FXML private TableColumn<Chauffeur, String> chauffeurStatusColumn;
+    @FXML private TableColumn<Chauffeur, Chauffeur> chauffeurActionsColumn;
 
 
     // ---------------------------------------------------------------
@@ -149,20 +98,12 @@ public class DashboardController {
     // Table data
     // ---------------------------------------------------------------
 
-    private final ObservableList<Trip> trips =
-            FXCollections.observableArrayList();
-
-    private final ObservableList<Bus> buses =
-            FXCollections.observableArrayList();
-
-    private final ObservableList<Chauffeur> chauffeurs =
-            FXCollections.observableArrayList();
-
+    private final ObservableList<Trip> trips = FXCollections.observableArrayList();
+    private final ObservableList<Bus> buses = FXCollections.observableArrayList();
+    private final ObservableList<Chauffeur> chauffeurs = FXCollections.observableArrayList();
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern(
-                    "dd MMM yyyy, HH:mm"
-            );
+            DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm");
 
 
     // ---------------------------------------------------------------
@@ -171,39 +112,18 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-
-        ToggleGroup navGroup =
-                new ToggleGroup();
-
-        planningNavButton.setToggleGroup(
-                navGroup
-        );
-
-        busesNavButton.setToggleGroup(
-                navGroup
-        );
-
-        chauffeursNavButton.setToggleGroup(
-                navGroup
-        );
-
-        planningNavButton.setSelected(
-                true
-        );
-
+        ToggleGroup navGroup = new ToggleGroup();
+        planningNavButton.setToggleGroup(navGroup);
+        busesNavButton.setToggleGroup(navGroup);
+        chauffeursNavButton.setToggleGroup(navGroup);
+        planningNavButton.setSelected(true);
 
         setUpTripTable();
-
         setUpBusTable();
-
         setUpChauffeurTable();
 
-
         refreshAll();
-
-        showSection(
-                planningSection
-        );
+        showSection(planningSection);
     }
 
 
@@ -213,60 +133,28 @@ public class DashboardController {
 
     @FXML
     private void onShowPlanning() {
-
-        showSection(
-                planningSection
-        );
+        showSection(planningSection);
     }
-
 
     @FXML
     private void onShowBuses() {
-
-        showSection(
-                busesSection
-        );
+        showSection(busesSection);
     }
-
 
     @FXML
     private void onShowChauffeurs() {
-
-        showSection(
-                chauffeursSection
-        );
+        showSection(chauffeursSection);
     }
 
+    private void showSection(VBox section) {
+        planningSection.setVisible(section == planningSection);
+        planningSection.setManaged(section == planningSection);
 
-    private void showSection(
-            VBox section
-    ) {
+        busesSection.setVisible(section == busesSection);
+        busesSection.setManaged(section == busesSection);
 
-        planningSection.setVisible(
-                section == planningSection
-        );
-
-        planningSection.setManaged(
-                section == planningSection
-        );
-
-
-        busesSection.setVisible(
-                section == busesSection
-        );
-
-        busesSection.setManaged(
-                section == busesSection
-        );
-
-
-        chauffeursSection.setVisible(
-                section == chauffeursSection
-        );
-
-        chauffeursSection.setManaged(
-                section == chauffeursSection
-        );
+        chauffeursSection.setVisible(section == chauffeursSection);
+        chauffeursSection.setManaged(section == chauffeursSection);
     }
 
 
@@ -275,24 +163,12 @@ public class DashboardController {
     // ---------------------------------------------------------------
 
     private void refreshAll() {
-
-        trips.setAll(
-                tripVM.getAllTrips()
-        );
-
-        buses.setAll(
-                busVM.getAllBuses()
-        );
-
-        chauffeurs.setAll(
-                chauffeurVM.getAllChauffeurs()
-        );
-
+        trips.setAll(tripVM.getAllTrips());
+        buses.setAll(busVM.getAllBuses());
+        chauffeurs.setAll(chauffeurVM.getAllChauffeurs());
 
         tripTable.refresh();
-
         busTable.refresh();
-
         chauffeurTable.refresh();
     }
 
@@ -302,355 +178,137 @@ public class DashboardController {
     // ===============================================================
 
     private void setUpTripTable() {
+        tripIdColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getTripId()));
 
-        tripIdColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .getTripId()
-                        )
-        );
+        destinationColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getDestination()));
 
+        startColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getStartTime().format(DATE_TIME_FORMATTER)));
 
-        destinationColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .getDestination()
-                        )
-        );
+        endColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getEndTime().format(DATE_TIME_FORMATTER)));
 
+        busColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(
+                        data.getValue().hasBusAssigned()
+                                ? data.getValue().getBusNumber()
+                                : "—"
+                ));
 
-        startColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .getStartTime()
-                                        .format(
-                                                DATE_TIME_FORMATTER
-                                        )
-                        )
-        );
+        chauffeurColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(
+                        data.getValue().hasChauffeurAssigned()
+                                ? data.getValue().getChauffeurName()
+                                : "—"
+                ));
 
+        tripStatusColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(tripStatus(data.getValue())));
 
-        endColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .getEndTime()
-                                        .format(
-                                                DATE_TIME_FORMATTER
-                                        )
-                        )
-        );
+        tripStatusColumn.setCellFactory(column ->
+                badgeCell(status -> switch (status) {
+                    case "Assigned" -> "badge-assigned";
+                    case "Completed" -> "badge-completed";
+                    default -> "badge-unassigned";
+                }));
 
+        tripActionsColumn.setCellValueFactory(data ->
+                new SimpleObjectProperty<>(data.getValue()));
 
-        busColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .hasBusAssigned()
-                                        ? data.getValue()
-                                        .getBusNumber()
-                                        : "—"
-                        )
-        );
+        tripActionsColumn.setCellFactory(column -> new TableCell<Trip, Trip>() {
 
+            private final Button viewButton = new Button("View");
+            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("Delete");
 
-        chauffeurColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .hasChauffeurAssigned()
-                                        ? data.getValue()
-                                        .getChauffeurName()
-                                        : "—"
-                        )
-        );
+            private final HBox box = new HBox(6, viewButton, editButton, deleteButton);
 
+            {
+                box.setAlignment(Pos.CENTER_LEFT);
 
-        tripStatusColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                tripStatus(
-                                        data.getValue()
-                                )
-                        )
-        );
+                viewButton.getStyleClass().add("btn-link");
+                editButton.getStyleClass().add("btn-link");
+                deleteButton.getStyleClass().addAll("btn-link", "btn-link-danger");
 
+                viewButton.setOnAction(event -> onViewTrip(getTableRow().getItem()));
+                editButton.setOnAction(event -> onEditTrip(getTableRow().getItem()));
+                deleteButton.setOnAction(event -> onDeleteTrip(getTableRow().getItem()));
+            }
 
-        tripStatusColumn.setCellFactory(
-                column ->
-                        badgeCell(
-                                status ->
-                                        switch (status) {
+            @Override
+            protected void updateItem(Trip trip, boolean empty) {
+                super.updateItem(trip, empty);
+                setGraphic(empty || trip == null ? null : box);
+            }
+        });
 
-                                            case "Assigned" ->
-                                                    "badge-assigned";
-
-                                            case "Completed" ->
-                                                    "badge-completed";
-
-                                            default ->
-                                                    "badge-unassigned";
-                                        }
-                        )
-        );
-
-
-        tripActionsColumn.setCellValueFactory(
-                data ->
-                        new SimpleObjectProperty<>(
-                                data.getValue()
-                        )
-        );
-
-
-        tripActionsColumn.setCellFactory(
-                column ->
-                        new TableCell<Trip, Trip>() {
-
-                            private final Button viewButton =
-                                    new Button("View");
-
-                            private final Button editButton =
-                                    new Button("Edit");
-
-                            private final Button deleteButton =
-                                    new Button("Delete");
-
-
-                            private final HBox box =
-                                    new HBox(
-                                            6,
-                                            viewButton,
-                                            editButton,
-                                            deleteButton
-                                    );
-
-
-                            {
-                                box.setAlignment(
-                                        Pos.CENTER_LEFT
-                                );
-
-
-                                viewButton
-                                        .getStyleClass()
-                                        .add(
-                                                "btn-link"
-                                        );
-
-                                editButton
-                                        .getStyleClass()
-                                        .add(
-                                                "btn-link"
-                                        );
-
-                                deleteButton
-                                        .getStyleClass()
-                                        .addAll(
-                                                "btn-link",
-                                                "btn-link-danger"
-                                        );
-
-
-                                viewButton.setOnAction(
-                                        event ->
-                                                onViewTrip(
-                                                        getTableRow()
-                                                                .getItem()
-                                                )
-                                );
-
-
-                                editButton.setOnAction(
-                                        event ->
-                                                onEditTrip(
-                                                        getTableRow()
-                                                                .getItem()
-                                                )
-                                );
-
-
-                                deleteButton.setOnAction(
-                                        event ->
-                                                onDeleteTrip(
-                                                        getTableRow()
-                                                                .getItem()
-                                                )
-                                );
-                            }
-
-
-                            @Override
-                            protected void updateItem(
-                                    Trip trip,
-                                    boolean empty
-                            ) {
-
-                                super.updateItem(
-                                        trip,
-                                        empty
-                                );
-
-
-                                setGraphic(
-                                        empty || trip == null
-                                                ? null
-                                                : box
-                                );
-                            }
-                        }
-        );
-
-
-        tripTable.setItems(
-                trips
-        );
-
-
-        tripTable.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
-
-
-        tripTable.setPlaceholder(
-                new Label(
-                        "No trips yet. Click \"+ New trip\" to plan one."
-                )
-        );
+        tripTable.setItems(trips);
+        tripTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tripTable.setPlaceholder(new Label("No trips yet. Click \"+ New trip\" to plan one."));
     }
 
-
-    private String tripStatus(
-            Trip trip
-    ) {
-
-        if (
-                !trip.hasBusAssigned()
-                        || !trip.hasChauffeurAssigned()
-        ) {
+    private String tripStatus(Trip trip) {
+        if (!trip.hasBusAssigned() || !trip.hasChauffeurAssigned()) {
             return "Unassigned";
         }
 
-
-        if (
-                trip.getEndTime()
-                        .isBefore(
-                                LocalDateTime.now()
-                        )
-        ) {
+        if (trip.getEndTime().isBefore(LocalDateTime.now())) {
             return "Completed";
         }
-
 
         return "Assigned";
     }
 
-
     @FXML
     private void onNewTrip() {
-
-        boolean saved =
-                AddTripController.showDialog(
-                        windowOf(
-                                tripTable
-                        )
-                );
-
+        boolean saved = AddTripController.showDialog(windowOf(tripTable));
 
         if (saved) {
             refreshAll();
         }
     }
-
 
     @FXML
     private void onCheckAvailability() {
-
-        CheckAvailabilityController.showDialog(
-                windowOf(tripTable)
-        );
+        CheckAvailabilityController.showDialog(windowOf(tripTable));
     }
 
-
-    private void onViewTrip(
-            Trip trip
-    ) {
-
+    private void onViewTrip(Trip trip) {
         if (trip == null) {
             return;
         }
 
-
-        ViewTripController.showDialog(
-                windowOf(
-                        tripTable
-                ),
-
-                trip
-        );
+        ViewTripController.showDialog(windowOf(tripTable), trip);
     }
 
-
-    private void onEditTrip(
-            Trip trip
-    ) {
-
+    private void onEditTrip(Trip trip) {
         if (trip == null) {
             return;
         }
 
-
-        boolean saved =
-                EditTripController.showDialog(
-                        windowOf(
-                                tripTable
-                        ),
-
-                        trip
-                );
-
+        boolean saved = EditTripController.showDialog(windowOf(tripTable), trip);
 
         if (saved) {
             refreshAll();
         }
     }
 
-
-    private void onDeleteTrip(
-            Trip trip
-    ) {
-
+    private void onDeleteTrip(Trip trip) {
         if (trip == null) {
             return;
         }
 
-
-        boolean confirmed =
-                ConfirmDeleteController.showDialog(
-                        windowOf(
-                                tripTable
-                        ),
-
-                        "Delete trip",
-
-                        trip.getTripId()
-                                + " ("
-                                + trip.getDestination()
-                                + ")",
-
-                        "Delete trip"
-                );
-
+        boolean confirmed = ConfirmDeleteController.showDialog(
+                windowOf(tripTable),
+                "Delete trip",
+                trip.getTripId() + " (" + trip.getDestination() + ")",
+                "Delete trip"
+        );
 
         if (confirmed) {
-
-            tripVM.deleteTrip(
-                    trip.getTripId()
-            );
-
+            tripVM.deleteTrip(trip.getTripId());
             refreshAll();
         }
     }
@@ -661,337 +319,124 @@ public class DashboardController {
     // ===============================================================
 
     private void setUpBusTable() {
+        busNumberColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getBusNumber()));
 
-        busNumberColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .getBusNumber()
-                        )
-        );
+        busTypeColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(Formatting.prettifyBusType(data.getValue().getType())));
 
+        busCapacityColumn.setCellValueFactory(data ->
+                new SimpleIntegerProperty(data.getValue().getCapacity()));
 
-        busTypeColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                Formatting.prettifyBusType(
-                                        data.getValue()
-                                                .getType()
-                                )
-                        )
-        );
+        busPurposeColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getPurpose()));
 
+        busStatusColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(busStatus(data.getValue())));
 
-        busCapacityColumn.setCellValueFactory(
-                data ->
-                        new SimpleIntegerProperty(
-                                data.getValue()
-                                        .getCapacity()
-                        )
-        );
+        busStatusColumn.setCellFactory(column ->
+                badgeCell(status -> "On trip".equals(status) ? "badge-on-trip" : "badge-available"));
 
+        busActionsColumn.setCellValueFactory(data ->
+                new SimpleObjectProperty<>(data.getValue()));
 
-        busPurposeColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .getPurpose()
-                        )
-        );
+        busActionsColumn.setCellFactory(column -> new TableCell<Bus, Bus>() {
 
+            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("Delete");
 
-        busStatusColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                busStatus(
-                                        data.getValue()
-                                )
-                        )
-        );
+            private final HBox box = new HBox(6, editButton, deleteButton);
 
+            {
+                box.setAlignment(Pos.CENTER_LEFT);
 
-        busStatusColumn.setCellFactory(
-                column ->
-                        badgeCell(
-                                status ->
-                                        "On trip".equals(
-                                                status
-                                        )
+                editButton.getStyleClass().add("btn-link");
+                deleteButton.getStyleClass().addAll("btn-link", "btn-link-danger");
 
-                                                ? "badge-on-trip"
+                editButton.setOnAction(event -> onEditBus(getTableRow().getItem()));
+                deleteButton.setOnAction(event -> onDeleteBus(getTableRow().getItem()));
+            }
 
-                                                : "badge-available"
-                        )
-        );
+            @Override
+            protected void updateItem(Bus bus, boolean empty) {
+                super.updateItem(bus, empty);
+                setGraphic(empty || bus == null ? null : box);
+            }
+        });
 
-
-        busActionsColumn.setCellValueFactory(
-                data ->
-                        new SimpleObjectProperty<>(
-                                data.getValue()
-                        )
-        );
-
-
-        busActionsColumn.setCellFactory(
-                column ->
-                        new TableCell<Bus, Bus>() {
-
-                            private final Button editButton =
-                                    new Button("Edit");
-
-                            private final Button deleteButton =
-                                    new Button("Delete");
-
-
-                            private final HBox box =
-                                    new HBox(
-                                            6,
-                                            editButton,
-                                            deleteButton
-                                    );
-
-
-                            {
-                                box.setAlignment(
-                                        Pos.CENTER_LEFT
-                                );
-
-
-                                editButton
-                                        .getStyleClass()
-                                        .add(
-                                                "btn-link"
-                                        );
-
-
-                                deleteButton
-                                        .getStyleClass()
-                                        .addAll(
-                                                "btn-link",
-                                                "btn-link-danger"
-                                        );
-
-
-                                editButton.setOnAction(
-                                        event ->
-                                                onEditBus(
-                                                        getTableRow()
-                                                                .getItem()
-                                                )
-                                );
-
-
-                                deleteButton.setOnAction(
-                                        event ->
-                                                onDeleteBus(
-                                                        getTableRow()
-                                                                .getItem()
-                                                )
-                                );
-                            }
-
-
-                            @Override
-                            protected void updateItem(
-                                    Bus bus,
-                                    boolean empty
-                            ) {
-
-                                super.updateItem(
-                                        bus,
-                                        empty
-                                );
-
-
-                                setGraphic(
-                                        empty || bus == null
-                                                ? null
-                                                : box
-                                );
-                            }
-                        }
-        );
-
-
-        busTable.setItems(
-                buses
-        );
-
-
-        busTable.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
-
-
-        busTable.setPlaceholder(
-                new Label(
-                        "No buses yet. Click \"+ New bus\" to add one."
-                )
-        );
+        busTable.setItems(buses);
+        busTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        busTable.setPlaceholder(new Label("No buses yet. Click \"+ New bus\" to add one."));
     }
 
-
-    private String busStatus(
-            Bus bus
-    ) {
-
-        for (
-                Trip trip
-                : tripVM.getAllTrips()
-        ) {
-
-            if (
-                    trip.hasBusAssigned()
-
-                            && trip.getBusNumber()
-                            .equalsIgnoreCase(
-                                    bus.getBusNumber()
-                            )
-
-                            && trip.getEndTime()
-                            .isAfter(
-                                    LocalDateTime.now()
-                            )
-            ) {
+    private String busStatus(Bus bus) {
+        for (Trip trip : tripVM.getAllTrips()) {
+            if (trip.hasBusAssigned()
+                    && trip.getBusNumber().equalsIgnoreCase(bus.getBusNumber())
+                    && trip.getEndTime().isAfter(LocalDateTime.now())) {
                 return "On trip";
             }
         }
 
-
         return "Available";
     }
 
-
     @FXML
     private void onNewBus() {
-
-        boolean saved =
-                AddBusController.showDialog(
-                        windowOf(
-                                busTable
-                        )
-                );
-
+        boolean saved = AddBusController.showDialog(windowOf(busTable));
 
         if (saved) {
             refreshAll();
         }
     }
 
-
-    private void onEditBus(
-            Bus bus
-    ) {
-
+    private void onEditBus(Bus bus) {
         if (bus == null) {
             return;
         }
 
-
-        boolean saved =
-                EditBusController.showDialog(
-                        windowOf(
-                                busTable
-                        ),
-
-                        bus
-                );
-
+        boolean saved = EditBusController.showDialog(windowOf(busTable), bus);
 
         if (saved) {
             refreshAll();
         }
     }
 
-
-    private void onDeleteBus(
-            Bus bus
-    ) {
-
+    private void onDeleteBus(Bus bus) {
         if (bus == null) {
             return;
         }
 
-
-        int upcoming =
-                countUpcomingTripsForBus(
-                        bus
-                );
-
+        int upcoming = countUpcomingTripsForBus(bus);
 
         if (upcoming > 0) {
-
-            CannotDeleteController.showDialog(
-                    windowOf(
-                            busTable
-                    ),
-
-                    "bus",
-
-                    bus.getBusNumber(),
-
-                    upcoming
-            );
-
+            CannotDeleteController.showDialog(windowOf(busTable), "bus", bus.getBusNumber(), upcoming);
             return;
         }
 
-
-        boolean confirmed =
-                ConfirmDeleteController.showDialog(
-                        windowOf(
-                                busTable
-                        ),
-
-                        "Delete bus",
-
-                        bus.getBusNumber(),
-
-                        "Delete bus"
-                );
-
+        boolean confirmed = ConfirmDeleteController.showDialog(
+                windowOf(busTable),
+                "Delete bus",
+                bus.getBusNumber(),
+                "Delete bus"
+        );
 
         if (confirmed) {
-
-            busVM.deleteBus(
-                    bus.getBusID()
-            );
-
+            busVM.deleteBus(bus.getBusID());
             refreshAll();
         }
     }
 
-
-    private int countUpcomingTripsForBus(
-            Bus bus
-    ) {
-
+    private int countUpcomingTripsForBus(Bus bus) {
         int count = 0;
 
-
-        for (
-                Trip trip
-                : tripVM.getAllTrips()
-        ) {
-
-            if (
-                    trip.hasBusAssigned()
-
-                            && trip.getBusNumber()
-                            .equalsIgnoreCase(
-                                    bus.getBusNumber()
-                            )
-
-                            && trip.getEndTime()
-                            .isAfter(
-                                    LocalDateTime.now()
-                            )
-            ) {
+        for (Trip trip : tripVM.getAllTrips()) {
+            if (trip.hasBusAssigned()
+                    && trip.getBusNumber().equalsIgnoreCase(bus.getBusNumber())
+                    && trip.getEndTime().isAfter(LocalDateTime.now())) {
                 count++;
             }
         }
-
 
         return count;
     }
@@ -1002,337 +447,125 @@ public class DashboardController {
     // ===============================================================
 
     private void setUpChauffeurTable() {
+        chauffeurNameColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(data.getValue().getName()));
 
-        chauffeurNameColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                data.getValue()
-                                        .getName()
-                        )
-        );
+        chauffeurExperienceColumn.setCellValueFactory(data ->
+                new SimpleIntegerProperty(data.getValue().getExperience()));
 
+        chauffeurPreferencesColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(
+                        data.getValue().getPreferences() == null || data.getValue().getPreferences().isBlank()
+                                ? "—"
+                                : data.getValue().getPreferences()
+                ));
 
-        chauffeurExperienceColumn.setCellValueFactory(
-                data ->
-                        new SimpleIntegerProperty(
-                                data.getValue()
-                                        .getExperience()
-                        )
-        );
+        chauffeurStatusColumn.setCellValueFactory(data ->
+                new SimpleStringProperty(chauffeurStatus(data.getValue())));
 
+        chauffeurStatusColumn.setCellFactory(column ->
+                badgeCell(status -> "On trip".equals(status) ? "badge-on-trip" : "badge-available"));
 
-        chauffeurPreferencesColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
+        chauffeurActionsColumn.setCellValueFactory(data ->
+                new SimpleObjectProperty<>(data.getValue()));
 
-                                data.getValue()
-                                        .getPreferences()
-                                        == null
+        chauffeurActionsColumn.setCellFactory(column -> new TableCell<Chauffeur, Chauffeur>() {
 
-                                        || data.getValue()
-                                        .getPreferences()
-                                        .isBlank()
+            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("Delete");
 
-                                        ? "—"
+            private final HBox box = new HBox(6, editButton, deleteButton);
 
-                                        : data.getValue()
-                                        .getPreferences()
-                        )
-        );
+            {
+                box.setAlignment(Pos.CENTER_LEFT);
 
+                editButton.getStyleClass().add("btn-link");
+                deleteButton.getStyleClass().addAll("btn-link", "btn-link-danger");
 
-        chauffeurStatusColumn.setCellValueFactory(
-                data ->
-                        new SimpleStringProperty(
-                                chauffeurStatus(
-                                        data.getValue()
-                                )
-                        )
-        );
+                editButton.setOnAction(event -> onEditChauffeur(getTableRow().getItem()));
+                deleteButton.setOnAction(event -> onDeleteChauffeur(getTableRow().getItem()));
+            }
 
+            @Override
+            protected void updateItem(Chauffeur chauffeur, boolean empty) {
+                super.updateItem(chauffeur, empty);
+                setGraphic(empty || chauffeur == null ? null : box);
+            }
+        });
 
-        chauffeurStatusColumn.setCellFactory(
-                column ->
-                        badgeCell(
-                                status ->
-                                        "On trip".equals(
-                                                status
-                                        )
-
-                                                ? "badge-on-trip"
-
-                                                : "badge-available"
-                        )
-        );
-
-
-        chauffeurActionsColumn.setCellValueFactory(
-                data ->
-                        new SimpleObjectProperty<>(
-                                data.getValue()
-                        )
-        );
-
-
-        chauffeurActionsColumn.setCellFactory(
-                column ->
-                        new TableCell<Chauffeur, Chauffeur>() {
-
-                            private final Button editButton =
-                                    new Button("Edit");
-
-                            private final Button deleteButton =
-                                    new Button("Delete");
-
-
-                            private final HBox box =
-                                    new HBox(
-                                            6,
-                                            editButton,
-                                            deleteButton
-                                    );
-
-
-                            {
-                                box.setAlignment(
-                                        Pos.CENTER_LEFT
-                                );
-
-
-                                editButton
-                                        .getStyleClass()
-                                        .add(
-                                                "btn-link"
-                                        );
-
-
-                                deleteButton
-                                        .getStyleClass()
-                                        .addAll(
-                                                "btn-link",
-                                                "btn-link-danger"
-                                        );
-
-
-                                editButton.setOnAction(
-                                        event ->
-                                                onEditChauffeur(
-                                                        getTableRow()
-                                                                .getItem()
-                                                )
-                                );
-
-
-                                deleteButton.setOnAction(
-                                        event ->
-                                                onDeleteChauffeur(
-                                                        getTableRow()
-                                                                .getItem()
-                                                )
-                                );
-                            }
-
-
-                            @Override
-                            protected void updateItem(
-                                    Chauffeur chauffeur,
-                                    boolean empty
-                            ) {
-
-                                super.updateItem(
-                                        chauffeur,
-                                        empty
-                                );
-
-
-                                setGraphic(
-                                        empty || chauffeur == null
-                                                ? null
-                                                : box
-                                );
-                            }
-                        }
-        );
-
-
-        chauffeurTable.setItems(
-                chauffeurs
-        );
-
-
-        chauffeurTable.setColumnResizePolicy(
-                TableView.CONSTRAINED_RESIZE_POLICY
-        );
-
-
-        chauffeurTable.setPlaceholder(
-                new Label(
-                        "No chauffeurs yet. Click \"+ New chauffeur\" to add one."
-                )
-        );
+        chauffeurTable.setItems(chauffeurs);
+        chauffeurTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        chauffeurTable.setPlaceholder(new Label("No chauffeurs yet. Click \"+ New chauffeur\" to add one."));
     }
 
-
-    private String chauffeurStatus(
-            Chauffeur chauffeur
-    ) {
-
-        for (
-                Trip trip
-                : tripVM.getAllTrips()
-        ) {
-
-            if (
-                    trip.hasChauffeurAssigned()
-
-                            && trip.getChauffeurName()
-                            .equalsIgnoreCase(
-                                    chauffeur.getName()
-                            )
-
-                            && trip.getEndTime()
-                            .isAfter(
-                                    LocalDateTime.now()
-                            )
-            ) {
+    private String chauffeurStatus(Chauffeur chauffeur) {
+        for (Trip trip : tripVM.getAllTrips()) {
+            if (trip.hasChauffeurAssigned()
+                    && trip.getChauffeurName().equalsIgnoreCase(chauffeur.getName())
+                    && trip.getEndTime().isAfter(LocalDateTime.now())) {
                 return "On trip";
             }
         }
 
-
         return "Available";
     }
 
-
     @FXML
     private void onNewChauffeur() {
-
-        boolean saved =
-                AddChauffeurController.showDialog(
-                        windowOf(
-                                chauffeurTable
-                        )
-                );
-
+        boolean saved = AddChauffeurController.showDialog(windowOf(chauffeurTable));
 
         if (saved) {
             refreshAll();
         }
     }
 
-
-    private void onEditChauffeur(
-            Chauffeur chauffeur
-    ) {
-
+    private void onEditChauffeur(Chauffeur chauffeur) {
         if (chauffeur == null) {
             return;
         }
 
-
-        boolean saved =
-                EditChauffeurController.showDialog(
-                        windowOf(
-                                chauffeurTable
-                        ),
-
-                        chauffeur
-                );
-
+        boolean saved = EditChauffeurController.showDialog(windowOf(chauffeurTable), chauffeur);
 
         if (saved) {
             refreshAll();
         }
     }
 
-
-    private void onDeleteChauffeur(
-            Chauffeur chauffeur
-    ) {
-
+    private void onDeleteChauffeur(Chauffeur chauffeur) {
         if (chauffeur == null) {
             return;
         }
 
-
-        int upcoming =
-                countUpcomingTripsForChauffeur(
-                        chauffeur
-                );
-
+        int upcoming = countUpcomingTripsForChauffeur(chauffeur);
 
         if (upcoming > 0) {
-
-            CannotDeleteController.showDialog(
-                    windowOf(
-                            chauffeurTable
-                    ),
-
-                    "chauffeur",
-
-                    chauffeur.getName(),
-
-                    upcoming
-            );
-
+            CannotDeleteController.showDialog(windowOf(chauffeurTable), "chauffeur", chauffeur.getName(), upcoming);
             return;
         }
 
-
-        boolean confirmed =
-                ConfirmDeleteController.showDialog(
-                        windowOf(
-                                chauffeurTable
-                        ),
-
-                        "Delete chauffeur",
-
-                        chauffeur.getName(),
-
-                        "Delete chauffeur"
-                );
-
+        boolean confirmed = ConfirmDeleteController.showDialog(
+                windowOf(chauffeurTable),
+                "Delete chauffeur",
+                chauffeur.getName(),
+                "Delete chauffeur"
+        );
 
         if (confirmed) {
-
-            chauffeurVM.deleteChauffeur(
-                    chauffeur.getChauffeurID()
-            );
-
+            chauffeurVM.deleteChauffeur(chauffeur.getChauffeurID());
             refreshAll();
         }
     }
 
-
-    private int countUpcomingTripsForChauffeur(
-            Chauffeur chauffeur
-    ) {
-
+    private int countUpcomingTripsForChauffeur(Chauffeur chauffeur) {
         int count = 0;
 
-
-        for (
-                Trip trip
-                : tripVM.getAllTrips()
-        ) {
-
-            if (
-                    trip.hasChauffeurAssigned()
-
-                            && trip.getChauffeurName()
-                            .equalsIgnoreCase(
-                                    chauffeur.getName()
-                            )
-
-                            && trip.getEndTime()
-                            .isAfter(
-                                    LocalDateTime.now()
-                            )
-            ) {
+        for (Trip trip : tripVM.getAllTrips()) {
+            if (trip.hasChauffeurAssigned()
+                    && trip.getChauffeurName().equalsIgnoreCase(chauffeur.getName())
+                    && trip.getEndTime().isAfter(LocalDateTime.now())) {
                 count++;
             }
         }
-
 
         return count;
     }
@@ -1342,67 +575,27 @@ public class DashboardController {
     // Helpers
     // ===============================================================
 
-    private <S>
-    TableCell<S, String> badgeCell(
-            Function<String, String> styleClassResolver
-    ) {
-
+    private <S> TableCell<S, String> badgeCell(Function<String, String> styleClassResolver) {
         return new TableCell<>() {
 
             @Override
-            protected void updateItem(
-                    String status,
-                    boolean empty
-            ) {
+            protected void updateItem(String status, boolean empty) {
+                super.updateItem(status, empty);
 
-                super.updateItem(
-                        status,
-                        empty
-                );
-
-
-                if (
-                        empty
-                                || status == null
-                ) {
-
-                    setGraphic(
-                            null
-                    );
-
+                if (empty || status == null) {
+                    setGraphic(null);
                     return;
                 }
 
+                Label badge = new Label(status);
+                badge.getStyleClass().addAll("badge", styleClassResolver.apply(status));
 
-                Label badge =
-                        new Label(
-                                status
-                        );
-
-
-                badge.getStyleClass()
-                        .addAll(
-                                "badge",
-
-                                styleClassResolver.apply(
-                                        status
-                                )
-                        );
-
-
-                setGraphic(
-                        badge
-                );
+                setGraphic(badge);
             }
         };
     }
 
-
-    private Window windowOf(
-            Node node
-    ) {
-
-        return node.getScene()
-                .getWindow();
+    private Window windowOf(Node node) {
+        return node.getScene().getWindow();
     }
 }

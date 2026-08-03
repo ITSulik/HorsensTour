@@ -135,7 +135,6 @@ public class AddBusController {
         return saved;
     }
 
-    /** Opens the New/Edit bus dialog. Pass {@code null} as busToEdit to create a new bus. */
     public static boolean showDialog(Window owner) {
         try {
             String title = "New bus" ;

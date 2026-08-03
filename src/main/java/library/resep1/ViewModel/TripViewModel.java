@@ -32,10 +32,9 @@ public class TripViewModel {
           String busNumber,
           String chauffeurName
   ) {
-    String tripId = UUID.randomUUID().toString();
+
 
     Trip trip = new Trip(
-            tripId,
             destination,
             startTime,
             endTime,

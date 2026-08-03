@@ -112,7 +112,6 @@ public class AddChauffeurController {
         return saved;
     }
 
-    /** Opens the New/Edit chauffeur dialog. Pass {@code null} as chauffeurToEdit to create a new one. */
     public static boolean showDialog(Window owner) {
         try {
             String title = "New chauffeur";
